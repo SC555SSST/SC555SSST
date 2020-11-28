@@ -1,11 +1,11 @@
-<?php require 'header.php'; ?>
+<?php require 'includes/header.php'; ?>
 
 
 
 
 
 
-<?php require 'left-sidebar.php'; ?>
+<?php require 'includes/left-sidebar.php'; ?>
 
                 
         <div class="mcw clearfix container-fluid">          
@@ -260,9 +260,9 @@
 
                 </div>
 
-                <?php require 'right-sidebar.php'; ?>
+                <?php require 'includes/right-sidebar.php'; ?>
             </div>
                            
 
                             
-<?php require 'footer.php'; ?>
+<?php require 'includes/footer.php'; ?>
