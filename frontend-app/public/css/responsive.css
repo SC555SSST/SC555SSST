@@ -1,0 +1,159 @@
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+    .category-div{
+        margin-bottom: 20px;
+    }
+
+    .forum-item .forum-item-author{
+        margin-top: 10px;
+    }
+
+    .forum-item{
+        position: relative;
+    }
+    .forum-item .forum-info {
+        position: absolute;
+        bottom: 90px;
+        right: 0px;
+        z-index: 9999;
+    }
+
+
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+    .forum-item .forum-item-author{
+        margin-top: 10px;
+    }
+    .category-div{
+        margin-bottom: 20px;
+    }
+    nav.mnb .navbar-header .expand_div{
+        padding: 15px;
+    }
+
+    .mnb ul li.profile .dropdown-menu {
+        width: 100%;
+    }
+
+    nav.mnb .navbar-collapse form.search-form {
+        width: 101%;
+    }
+
+
+    nav.mnb ul.nav.navbar-nav ul.user_dropdown li a{
+        color: #a03812;
+        font-weight: bold;
+    }
+    .profile-link .user-image {
+        margin-top: -9px;
+    }
+
+    nav.mnb ul.nav.navbar-nav li.profile a{
+        height: 50px;
+    }
+
+
+
+    .forum-top.navbar-default, .forum-left.navbar-default{margin-left: 0px;margin-bottom: 0px;}
+    .msb,.mcw{
+        width: 100%;
+        position: relative;
+        margin-left: 0px;
+
+    }
+
+    .mcw {
+      -moz-animation: none;
+      -o-animation: none;
+      -webkit-animation: none;
+      animation: none;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+    .expand_div{
+        display: none;
+    }
+
+
+    .user_profile_details_container .user_profile_image img{
+        display: block;
+        margin: auto;
+
+        width: 30%;
+        max-width: unset;
+        min-width: 150px;
+    }
+    nav li.mobile_menu a{
+        text-align: center;
+        font-size: 24px;
+    }
+
+    nav li.mobile_menu ul li a{
+        font-size: 18px;
+        /* padding: 24px; */
+        text-align: center;
+    }
+
+    .msb .navbar-header {
+        margin-bottom: 0px;
+        background: #fff;
+    }
+
+    .brand-name-wrapper a img{
+        width: 40%;
+        display: block;
+        margin: auto;
+        min-width: 180px;
+        max-width: 240px
+
+    }
+
+
+    .forum-item .forum-item-author{
+        margin-top: 10px;
+    }
+
+    .forum-item{
+        position: relative;
+    }
+    .forum-item .forum-info {
+        position: absolute;
+        bottom: 90px;
+        right: 0px;
+        z-index: 9999;
+    }
+
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

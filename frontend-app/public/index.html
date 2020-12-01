@@ -1,43 +1,451 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html lang="en" >
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="%PUBLIC_URL%/fav-icon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kamatha - Forum</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    <link rel="stylesheet" href="%PUBLIC_URL%/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/plugins/datatables/buttons.dataTables.min.css">
+
+
+
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/style.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/responsive.css">
+
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+
+    <div class="forum-container ibox-content clearfix">
+
+
+        <!-- top navigation -->
+        <nav class="mnb navbar navbar-default forum-top navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="ic fa fa-bars"></i>
+                    </button>
+                    <div class="expand_div">
+                        <a href="#" id="msbo"><i class="ic fa fa-bars"></i></a>
+                    </div>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    
+                    <!-- react component : user menu loads here-->
+                    <div id="react_user_menu_container">
+                        
+                    </div><!-- react component end-->
+                    
+                    <!-- react component : search form loads here-->
+                    <div id="react_search_form_container">
+                        
+                    </div><!-- react component end-->
+                    
+
+                </div>
+            </div>
+        </nav>
+        <!-- top navigation end-->
+
+
+        <!--msb: main sidebar-->
+        <div class="msb col-md-2" id="msb">
+            <nav class="navbar navbar-default forum-left" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <div class="brand-wrapper">
+                        <!-- Brand -->
+                        <div class="brand-name-wrapper">
+                            <a href="/" title="kamatha-logo" id="branding">
+                                <img src="%PUBLIC_URL%/img/logo.png" alt="kamatha-logo" title="kamatha-logo" class="img-responsive">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Menu -->
+                <div class="side-menu-container">
+                    <!-- react component : left sidebar menu loads here-->
+                    <div id="react_left_sidebar_menu_container">
+                        
+                    </div><!-- react component end-->
+
+                </div>
+            </nav>  
+        </div>
+        <!--msb: main sidebar end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="mcw clearfix container-fluid">           
+
+            <div class="row">
+                <div class="col-md-10 page-content clearfix">
+                    <noscript>You need to enable JavaScript to run this app.</noscript>
+                    <!-- react component : page content loads here--> 
+                    <div id="react_page_container">
+                        
+                    </div><!-- react component end-->
+
+                </div>
+
+                <!-- react component right_sidebar loads here--> 
+                <div id="react_right_sidebar_container">
+                    
+                </div><!-- react right_sidebar component end-->
+
+            </div>
+
+            <div class="footer_row row">
+                <footer class="footer-section">
+                    <div class="container-fluid">
+                        
+                        <div class="footer-content pt-5 pb-5">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5 col-lg-5 mb-30">
+                                    <div class="footer-widget">
+                                        <div class="footer-logo">
+                                            <a href="index.html"><img src="%PUBLIC_URL%/img/logo.png" class="img-fluid" alt="logo"></a>
+                                        </div>
+                                        <div class="footer-text">
+                                            <p>ee Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
+                                            elit,Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                        <div class="footer-social-icon">
+                                            <span>Follow us</span>
+                                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                                            <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 col-lg-2 col-md-6 mb-30">
+                                    <div class="footer-widget">
+                                        <div class="footer-widget-heading">
+                                            <h3>Categories</h3>
+                                        </div>
+                                        <ul>
+                                            <li><a href="#">Category 1</a></li>
+                                            <li><a href="#">Category two</a></li>
+                                            <li><a href="#">Rice</a></li>
+                                            <li><a href="#">Fruits</a></li>
+                                            <li><a href="#">Vegetables</a></li>                                
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-5 col-md-6 mb-30">
+                                    <div class="footer-widget">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-12 mb-30">
+                                                <div class="single-cta">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    <div class="cta-text">
+                                                        <h4>Find us</h4>
+                                                        <span>1010 Avenue, sw 54321, chandigarh</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-30">
+                                                <div class="single-cta">
+                                                    <i class="fas fa-phone"></i>
+                                                    <div class="cta-text">
+                                                        <h4>Call us</h4>
+                                                        <span>9876543210 0</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-30">
+                                                <div class="single-cta">
+                                                    <i class="far fa-envelope-open"></i>
+                                                    <div class="cta-text">
+                                                        <h4>Mail us</h4>
+                                                        <span>mail@info.com</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="copyright-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 text-center text-md-left">
+                                    <div class="copyright-text">
+                                        <p>Copyright &copy; <span id="year-div"></span>, All Right Reserved <a href="#">Company name</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 d-none d-lg-block text-center text-md-right">
+                                    <div class="footer-menu">
+                                        <ul>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">Terms</a></li>
+                                            <li><a href="#">Privacy</a></li>
+                                            <li><a href="#">Policy</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deniedPermissionModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                    <h3 class="modal-title">Permission denied</h3>
+                </div>
+                <div class="modal-body">
+                    <p>You dont have permission to access this resource.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="logoutModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                    <h3 class="modal-title">Logout</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to logout</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">                
+                <form>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                        <h3 class="modal-title">Add category</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="small-text-label">Type here category name you want to add</div>
+                        <div class="form-group">
+                            <input id="text" name="text" type="text" class="form-control">
+                        </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times-circle"></i>
+                        </button>
+                        <h3 class="modal-title">Edit</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="small-text-label">Type here category name you want edit</div>
+                        <div class="form-group">
+                            <input id="text" name="text" type="text" class="form-control">
+                        </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                    <h3 class="modal-title">Delete</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete the record</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->   
+  
+
+
+    <!-- partial -->
+    <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+
+    <!-- DataTables -->
+    <script src="%PUBLIC_URL%/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="%PUBLIC_URL%/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="%PUBLIC_URL%/plugins/datatables/dataTables.buttons.min.js"></script>
+        
+    <script type="text/javascript">
+        (function(){
+            $('#msbo').on('click', function(){
+                $('body').toggleClass('msb-x');
+            });
+        }());
+
+
+        
+        $('.thread_reply_btn').on('click', function(){
+            $('html, body').animate({
+                scrollTop: $("#reply_form").offset().top -200
+            }, 2000);
+            //location.href = "#reply_form";
+        });
+
+
+
+        $('.toggle').on('click',function(event){
+            let inputField = $(this).parent().find('input');
+            let icon       = $(this).parent().find('.eyeIcon');
+            //console.log(inputField.attr('type'));
+            
+            if (inputField.attr('type') === 'password') {
+                inputField.prop({type:"text"})
+                icon.addClass("fa-eye-slash");
+                icon.removeClass("fa-eye");            
+            } else {
+                inputField.prop({type:"password"})
+                icon.addClass("fa-eye");
+                icon.removeClass("fa-eye-slash");
+            }            
+        });
+
+
+
+        /*
+        let passwordInput = document.getElementById('old-pw'),
+        toggle = document.getElementById('btnToggle'),
+        icon =  document.getElementById('eyeIcon');
+
+
+        toggle.addEventListener('click', togglePassword, false);
+        function togglePassword() {
+
+            console.log()
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.add("fa-eye-slash");
+            //toggle.innerHTML = 'hide';
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove("fa-eye-slash");
+            //toggle.innerHTML = 'show';
+            }
+        }
+        */
+
+
+
+        $('#categoryList').on('init.dt', function() {
+            $('.add-project')
+                .attr('data-toggle', 'modal')
+                .attr('data-target', '#addModal');
+        });
+
+
+        $(function () {
+            var projTable = $("#categoryList").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        text: 'Add Category',
+                        action: function ( e, dt, node, config ) {
+                            //$('#addProjectModal').modal('show');
+                            $('#add-modal').modal('show');
+                            //  alert( 'Button activated' );
+                        },
+                        className: 'add-project'
+                    }
+                ]
+            });
+        });
+
+
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("year-div").innerHTML = n;
+    </script>
+
+</body>
 </html>

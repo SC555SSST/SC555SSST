@@ -8,7 +8,7 @@
         <div class="mcw clearfix container-fluid">           
 
             <div class="row">
-                <div class="col-md-10 page-content">
+                <div class="col-md-10 page-content clearfix">
 
                     
 
