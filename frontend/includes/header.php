@@ -23,20 +23,7 @@
     <link rel="stylesheet" href="./css/responsive.css">
 
     <style type="text/css">
-        .category-div{
-            /* width: 200px; */
-            background-color: transparent;
-            position: relative;
-            left: auto;
-            top: 0px;
-            right: 0;
-            min-height: 100%;
-            overflow-y: auto;
-            white-space: nowrap;
-            height: 100%;
-            z-index: 1;
-            border-left: 0px solid #ddd;
-        }
+        
     </style>
 </head>
 <body>
