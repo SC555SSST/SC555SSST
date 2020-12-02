@@ -4,7 +4,39 @@ import React from 'react';
 
 
 class Login extends React.Component{
-	render(){
+	
+
+    
+
+
+
+         
+    
+    togglePassword = (event) =>{
+        
+        //console.log(event.target);
+        //console.log(event.target.parentNode);
+        //console.log(event.target.parentNode.querySelector('input[name="password"]'));
+        
+        let passwordInput = event.target.parentNode.querySelector('input[name="password"]')
+        let btn = event.target
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            btn.classList.add("fa-eye-slash");
+            btn.classList.remove("fa-eye");
+        } else {
+            passwordInput.type = 'password';
+            btn.classList.add("fa-eye");
+            btn.classList.remove("fa-eye-slash");
+        }
+
+
+        
+    };
+
+
+    render(){
 		return (
     		<React.Fragment>
     			
@@ -22,7 +54,8 @@ class Login extends React.Component{
                             <div className="form-group">
                                 <label htmlFor="text" className="control-label">password</label>
                                 <input id="password" name="password" type="password" className="form-control"/>
-                                <button type="button" id="btnToggle" className="toggle"><i id="" className="eyeIcon fa fa-eye"></i></button>
+                                <button onClick={this.togglePassword} type="button" id="btnToggle" className="eyeIcon fa fa-eye toggle">
+                                </button>
                             </div>                                
 
                             <div className="form-group">

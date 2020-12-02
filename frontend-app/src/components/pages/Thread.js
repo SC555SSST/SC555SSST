@@ -4,7 +4,27 @@ import React from 'react';
 
 
 class Thread extends React.Component{
-	render(){
+	
+    constructor(props) {
+        super(props)
+        this.answerFormRef = React.createRef()
+    }
+
+
+
+         
+    
+    clickReplyBtn = (event) =>{
+        
+        this.answerFormRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'center',
+        });
+        
+    };
+
+    render(){
 		return (
 		<React.Fragment>
 			
@@ -46,7 +66,7 @@ class Thread extends React.Component{
                                                                 <img src="img/user-images/user-2.png" className="d-block ui-w-40 rounded-circle" alt=""/>
                                                             </div>
                                                             <div className="user-details-txt ml-3">
-                                                                <a href="javascript:void(0)" data-abc="true">Tom Harry</a>
+                                                                <a href="" data-abc="true">Tom Harry</a>
                                                                 <div className="text-muted small">13 days ago</div>
                                                             </div>
                                                             <div className="text-muted small ml-3">
@@ -67,14 +87,14 @@ class Thread extends React.Component{
                                                     </div>
                                                     <div className="thread-main-post-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                                                         <div className="px-4 pt-3">
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle" data-abc="true">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle" data-abc="true">
                                                                 <i className="fas fa-edit"></i>&nbsp; <span className="align-middle">Edit</span>
                                                             </a>
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle ml-4">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle ml-4">
                                                                 <i className="fa fa-trash text-danger" aria-hidden="true"></i>&nbsp; <span className="align-middle">Delete</span>
                                                             </a>
                                                         </div>
-                                                        <div className="px-4 pt-3"> <button type="button" className="thread_reply_btn btn btn-primary"><i className="ion ion-md-create"></i>&nbsp; Reply</button> </div>
+                                                        <div className="px-4 pt-3"> <button type="button" className="thread_reply_btn btn btn-primary" onClick={this.clickReplyBtn}><i className="ion ion-md-create"></i>&nbsp; Reply</button> </div>
                                                     </div>                    
                                                 </div>
                                             </div>
@@ -89,7 +109,7 @@ class Thread extends React.Component{
                                                                 <img src="img/user-images/user-2.png" className="d-block ui-w-40 rounded-circle" alt=""/>
                                                             </div>
                                                             <div className="user-details-txt ml-3">
-                                                                <a href="javascript:void(0)" data-abc="true">Tom Harry</a>
+                                                                <a href="" data-abc="true">Tom Harry</a>
                                                                 <div className="text-muted small">13 days ago</div>
                                                             </div>
                                                             <div className="ml-3 active check-mark-div">
@@ -107,10 +127,10 @@ class Thread extends React.Component{
                                                     </div>
                                                     <div className="thread-post-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                                                         <div className="px-4 pt-3">
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle" data-abc="true">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle" data-abc="true">
                                                                 <i className="fas fa-edit"></i>&nbsp; <span className="align-middle">Edit</span>
                                                             </a>
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle ml-4">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle ml-4">
                                                                 <i className="fa fa-trash text-danger" aria-hidden="true"></i>&nbsp; <span className="align-middle">Delete</span>
                                                             </a>
                                                         </div>
@@ -128,7 +148,7 @@ class Thread extends React.Component{
                                                                 <img src="img/user-images/user-2.png" className="d-block ui-w-40 rounded-circle" alt=""/>
                                                             </div>
                                                             <div className="user-details-txt ml-3">
-                                                                <a href="javascript:void(0)" data-abc="true">Tom Harry</a>
+                                                                <a href="" data-abc="true">Tom Harry</a>
                                                                 <div className="text-muted small">13 days ago</div>
                                                             </div>
                                                             <div className="ml-3 check-mark-div">
@@ -146,10 +166,10 @@ class Thread extends React.Component{
                                                     </div>
                                                     <div className="thread-post-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                                                         <div className="px-4 pt-3">
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle" data-abc="true">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle" data-abc="true">
                                                                 <i className="fas fa-edit"></i>&nbsp; <span className="align-middle">Edit</span>
                                                             </a>
-                                                            <a href="javascript:void(0)" className="d-inline-flex align-items-center align-middle ml-4">
+                                                            <a href="" className="d-inline-flex align-items-center align-middle ml-4">
                                                                 <i className="fa fa-trash text-danger" aria-hidden="true"></i>&nbsp; <span className="align-middle">Delete</span>
                                                             </a>
                                                         </div>
@@ -160,7 +180,7 @@ class Thread extends React.Component{
 
                                         <div className="row">
                                             <div className="col-md-12">
-                                                <div className="thread-main-post col-md-12 question-form">
+                                                <div className="thread-main-post col-md-12 question-form" ref={this.answerFormRef}>
 
                                                     <div className="forum-title">
                                                         <h3>Your Answer</h3>

@@ -29,6 +29,8 @@
 </head>
 <body>
 
+    
+    
     <div class="forum-container ibox-content clearfix">
 
 
@@ -104,8 +106,7 @@
 
 
 
-        <div class="mcw clearfix container-fluid">           
-
+        <div class="mcw clearfix container-fluid">
             <div class="row">
                 <div class="col-md-10 page-content clearfix">
                     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -222,7 +223,6 @@
                     </div>
                 </footer>
             </div>
-
         </div>
 
 
@@ -359,14 +359,13 @@
         }());
 
 
-        
-        $('.thread_reply_btn').on('click', function(){
+        /*
+        $('._thread_reply_btn').on('click', function(){
             $('html, body').animate({
                 scrollTop: $("#reply_form").offset().top -200
             }, 2000);
-            //location.href = "#reply_form";
         });
-
+       
 
 
         $('.toggle').on('click',function(event){
@@ -384,30 +383,11 @@
                 icon.removeClass("fa-eye-slash");
             }            
         });
+         */
 
 
 
-        /*
-        let passwordInput = document.getElementById('old-pw'),
-        toggle = document.getElementById('btnToggle'),
-        icon =  document.getElementById('eyeIcon');
-
-
-        toggle.addEventListener('click', togglePassword, false);
-        function togglePassword() {
-
-            console.log()
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.add("fa-eye-slash");
-            //toggle.innerHTML = 'hide';
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove("fa-eye-slash");
-            //toggle.innerHTML = 'show';
-            }
-        }
-        */
+        
 
 
 

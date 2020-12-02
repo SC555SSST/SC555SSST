@@ -4,7 +4,31 @@ import React from 'react';
 
 
 class ChangePassword extends React.Component{
-	render(){
+	
+    togglePassword = (event) =>{
+        
+        //console.log(event.target);
+        //console.log(event.target.parentNode);
+        //console.log(event.target.parentNode.querySelector('input[name="password"]'));
+        
+        let passwordInput = event.target.parentNode.querySelector('input')
+        let btn = event.target
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            btn.classList.add("fa-eye-slash");
+            btn.classList.remove("fa-eye");
+        } else {
+            passwordInput.type = 'password';
+            btn.classList.add("fa-eye");
+            btn.classList.remove("fa-eye-slash");
+        }
+        
+    };
+
+
+
+    render(){
 		return (
 		<React.Fragment>			
 		          
@@ -20,17 +44,17 @@ class ChangePassword extends React.Component{
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">Old password</label>
                             <input id="old_pw" name="old_pw" type="password" className="form-control"/>
-                            <button type="button" id="" className="toggle"><i id="" className="eyeIcon fa fa-eye"></i></button>
+                            <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">New password</label>
                             <input id="new_pw" name="new_pw" type="password" className="form-control"/>
-                            <button type="button" id="" className="toggle"><i id="" className="eyeIcon fa fa-eye"></i></button>
+                            <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">Confirm new password</label>
                             <input id="confirm_new_pw" name="confirm_new_pw" type="password" className="form-control"/>
-                            <button type="button" id="" className="toggle"><i id="" className="eyeIcon fa fa-eye"></i></button>
+                            <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
 
                         <div className="form-group">

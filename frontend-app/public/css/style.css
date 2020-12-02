@@ -1281,6 +1281,7 @@ footer.footer-section .footer-menu li a {
     position: absolute;
     right: 2px;
     top: 32px;
+    height: 30px;
 }
 .question-form form.change-pw-form .toggle:focus,
 .question-form form.login-form .toggle:focus{
