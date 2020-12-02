@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 
 
 
@@ -22,21 +22,23 @@ class Home extends React.Component{
                                     </div>
 
                                     <div className="col-md-8 no-left-padding">                                        
-                                        <a href="forum_post.html" className="forum-item-title">Announcements</a>
+                                        <Link to="/thread" className="forum-item-title">Announcements</Link>
                                         <div className="forum-sub-title">New to the community? music, movies, your favorite talk about enythingPlease stop by, say hi and tell us a bit about yourself.</div>
-                                        <div className="forum-category"><a href="">Rice</a></div>
+                                        <div className="forum-category">
+                                            <Link to="/category">Rice</Link>
+                                        </div>
                                     </div>
                                     
                                     <div className="col-md-3 forum-item-author">
                                         <div className="row">
                                             <div className="col-md-3">
-                                                <a href="#" className="profile-link dropdown-toggle" data-toggle="dropdown">
+                                                <Link to="/profile" className="profile-link dropdown-toggle">
                                                     <img src="img/user-images/user-2.png" className="user-image" alt="User Image"/>
-                                                </a>
+                                                </Link>
                                             </div>
 
                                             <div className="col-md-9">
-                                                <span className="username"><a href="">John Alex</a></span>
+                                                <span className="username"><Link to="/profile">John Alex</Link></span>
                                                 <div className="user-points-div">
                                                     <span className="points">1516 Points</span>                                                
                                                 </div>
@@ -53,7 +55,7 @@ class Home extends React.Component{
     		          
 		        <div className="btn-section-container clearfix">
                     <div className="pull-right">
-                        <a href="" className="question-btn">Ask Question</a>
+                        <Link to="/ask-question" className="question-btn">Ask Question</Link>
                     </div>
                 </div>
 

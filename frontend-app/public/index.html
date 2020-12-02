@@ -26,207 +26,31 @@
     <style type="text/css">
         
     </style>
+    <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
 </head>
 <body>
 
     
-    
-    <div class="forum-container ibox-content clearfix">
 
+    <div class="forum-container ibox-content clearfix" id="root">
 
         <!-- top navigation -->
-        <nav class="mnb navbar navbar-default forum-top navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <i class="ic fa fa-bars"></i>
-                    </button>
-                    <div class="expand_div">
-                        <a href="#" id="msbo"><i class="ic fa fa-bars"></i></a>
-                    </div>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    
-                    <!-- react component : user menu loads here-->
-                    <div id="react_user_menu_container">
-                        
-                    </div><!-- react component end-->
-                    
-                    <!-- react component : search form loads here-->
-                    <div id="react_search_form_container">
-                        
-                    </div><!-- react component end-->
-                    
-
-                </div>
-            </div>
-        </nav>
+        <!--  -->
         <!-- top navigation end-->
 
 
         <!--msb: main sidebar-->
-        <div class="msb col-md-2" id="msb">
-            <nav class="navbar navbar-default forum-left" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <div class="brand-wrapper">
-                        <!-- Brand -->
-                        <div class="brand-name-wrapper">
-                            <a href="/" title="kamatha-logo" id="branding">
-                                <img src="%PUBLIC_URL%/img/logo.png" alt="kamatha-logo" title="kamatha-logo" class="img-responsive">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Main Menu -->
-                <div class="side-menu-container">
-                    <!-- react component : left sidebar menu loads here-->
-                    <div id="react_left_sidebar_menu_container">
-                        
-                    </div><!-- react component end-->
-
-                </div>
-            </nav>  
-        </div>
+        <!--  -->
         <!--msb: main sidebar end-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="mcw clearfix container-fluid">
-            <div class="row">
-                <div class="col-md-10 page-content clearfix">
-                    <noscript>You need to enable JavaScript to run this app.</noscript>
-                    <!-- react component : page content loads here--> 
-                    <div id="react_page_container">
-                        
-                    </div><!-- react component end-->
-
-                </div>
-
-                <!-- react component right_sidebar loads here--> 
-                <div id="react_right_sidebar_container">
-                    
-                </div><!-- react right_sidebar component end-->
-
-            </div>
-
-            <div class="footer_row row">
-                <footer class="footer-section">
-                    <div class="container-fluid">
-                        
-                        <div class="footer-content pt-5 pb-5">
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5 col-lg-5 mb-30">
-                                    <div class="footer-widget">
-                                        <div class="footer-logo">
-                                            <a href="index.html"><img src="%PUBLIC_URL%/img/logo.png" class="img-fluid" alt="logo"></a>
-                                        </div>
-                                        <div class="footer-text">
-                                            <p>ee Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                                            elit,Lorem ipsum dolor sit amet.</p>
-                                        </div>
-                                        <div class="footer-social-icon">
-                                            <span>Follow us</span>
-                                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                                            <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3 col-lg-2 col-md-6 mb-30">
-                                    <div class="footer-widget">
-                                        <div class="footer-widget-heading">
-                                            <h3>Categories</h3>
-                                        </div>
-                                        <ul>
-                                            <li><a href="#">Category 1</a></li>
-                                            <li><a href="#">Category two</a></li>
-                                            <li><a href="#">Rice</a></li>
-                                            <li><a href="#">Fruits</a></li>
-                                            <li><a href="#">Vegetables</a></li>                                
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-4 col-lg-5 col-md-6 mb-30">
-                                    <div class="footer-widget">
-                                        
-                                        <div class="row">
-                                            <div class="col-md-12 mb-30">
-                                                <div class="single-cta">
-                                                    <i class="fas fa-map-marker-alt"></i>
-                                                    <div class="cta-text">
-                                                        <h4>Find us</h4>
-                                                        <span>1010 Avenue, sw 54321, chandigarh</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-30">
-                                                <div class="single-cta">
-                                                    <i class="fas fa-phone"></i>
-                                                    <div class="cta-text">
-                                                        <h4>Call us</h4>
-                                                        <span>9876543210 0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-30">
-                                                <div class="single-cta">
-                                                    <i class="far fa-envelope-open"></i>
-                                                    <div class="cta-text">
-                                                        <h4>Mail us</h4>
-                                                        <span>mail@info.com</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="copyright-area">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6 text-center text-md-left">
-                                    <div class="copyright-text">
-                                        <p>Copyright &copy; <span id="year-div"></span>, All Right Reserved <a href="#">Company name</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6 d-none d-lg-block text-center text-md-right">
-                                    <div class="footer-menu">
-                                        <ul>
-                                            <li><a href="#">Home</a></li>
-                                            <li><a href="#">Terms</a></li>
-                                            <li><a href="#">Privacy</a></li>
-                                            <li><a href="#">Policy</a></li>
-                                            <li><a href="#">Contact</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-
+        <!-- mcs -->
 
     </div>
+
+
+
+
+
 
     <div class="modal fade" tabindex="-1" role="dialog" id="deniedPermissionModal">
         <div class="modal-dialog" role="document">
@@ -342,7 +166,7 @@
 
 
     <!-- partial -->
-    <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+    
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 
 
@@ -352,6 +176,8 @@
     <script src="%PUBLIC_URL%/plugins/datatables/dataTables.buttons.min.js"></script>
         
     <script type="text/javascript">
+        console.log($);
+
         (function(){
             $('#msbo').on('click', function(){
                 $('body').toggleClass('msb-x');

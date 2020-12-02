@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+import { Link } from "react-router-dom";
 
 
 class PermissionDenied extends React.Component{
@@ -20,12 +20,11 @@ class PermissionDenied extends React.Component{
                             <h3>you dont have permission to access this resource.</h3>
                         </div>
                         <div className="">
-                            <p>Goto <a href="/questions">Home page</a></p>
+                            <p>Goto <Link to="/" className="">Home page</Link></p>
                         </div>
                         <div className="">
                             <a href="#" data-toggle="modal" data-target="#deniedPermissionModal">Popup message</a>
                         </div>
-
                     </div>      
 
 

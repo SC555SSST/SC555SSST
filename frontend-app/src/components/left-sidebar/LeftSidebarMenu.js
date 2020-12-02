@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import { BrowserRouter as Router, Route} from "react-router-dom";
+//import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
@@ -24,7 +24,7 @@ import { Link } from "react-router-dom";
 class LeftSidebarMenu extends React.Component{
 	render(){
 		return (
-		<Router>
+		
 		<React.Fragment>			
 
 	        <ul className="nav navbar-nav">
@@ -68,9 +68,10 @@ class LeftSidebarMenu extends React.Component{
                 {/*
                 <li className="active hidden-xs"><a href="#"><span className="glyphicon glyphicon-signal"></span> Link</a></li>
                 <li className="hidden-xs"><a href="#"><span className="glyphicon glyphicon-signal"></span> Link</a></li>
-				*/}
+				
 				<li  className="hidden-xs"><a href="/404">-404</a></li>
 				<li  className="hidden-xs"><a href="/login">-Login</a></li>
+                */}
 
 				
 				<li  className="hidden-xs"><Link to="/">Home</Link></li>
@@ -89,11 +90,17 @@ class LeftSidebarMenu extends React.Component{
 				<li  className="hidden-xs"><Link to="/all-users">AllUsers</Link></li>
 				<li  className="hidden-xs"><Link to="/thread">Thread</Link></li>
 
+                            <li  className="hidden-xs"><Link to="/category">Category</Link></li>
+                            <li  className="hidden-xs"><Link to="/thread-search">ThreadSearch</Link></li>
+                            <li  className="hidden-xs"><Link to="/category-manage">CategoryManage</Link></li> 
+                            <li  className="hidden-xs"><Link to="/user-manage">UserManage</Link></li>
+
+
 
             </ul>
 
         </React.Fragment>
-        </Router>  
+         
 		)
 	}
 }

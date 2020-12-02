@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
+                                        
 
 
 
@@ -16,12 +18,17 @@ class AllUsers extends React.Component{
 								<div className="user-profile-item col-md-6" key={i}>                                        
 		                            <div className="row">
 		                                <div className="col-md-2">
-		                                    <a href="#" className="profile-link dropdown-toggle" data-toggle="dropdown">
+                                            <Link to="/profile" className="profile-link dropdown-toggle">
+                                                <img src="img/user-images/user-2.png" className="user-image" alt="User Image"/>
+                                            </Link>
+		                                    {/*
+                                            <a href="#" className="profile-link dropdown-toggle">
 		                                        <img src="img/user-images/user-2.png" className="user-image" alt="User Image"/>
 		                                    </a>
+                                            */}
 		                                </div>
 		                                <div className="col-md-10">
-		                                    <span className="username"><a href="">Alexander Pierce</a></span>
+		                                    <span className="username"><Link to="/profile">Alexander Pierce</Link></span>
 		                                    <div className="user-sub-title">Various versions have evolved over the years, sometimes by accident</div>
 		                                    <div className="user-points-div">
 		                                        <span className="points">1516 Points</span>                                                
@@ -41,7 +48,7 @@ class AllUsers extends React.Component{
 			          
 				    <div className="btn-section-container clearfix">
                         <div className="pull-right">
-                            <a href="" className="question-btn">Ask Question</a>
+                            <Link to="/ask-question" className="question-btn">Ask Question</Link>
                         </div>
                     </div>
 

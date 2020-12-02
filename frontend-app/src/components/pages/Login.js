@@ -49,11 +49,11 @@ class Login extends React.Component{
                         <form className="login-form col-md-9">
                             <div className="form-group">
                                 <label htmlFor="text" className="control-label">Username</label>
-                                <input id="username" name="username" type="text" className="form-control"/>
+                                <input id="username" name="username" type="text" className="form-control"required/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="text" className="control-label">password</label>
-                                <input id="password" name="password" type="password" className="form-control"/>
+                                <input id="password" name="password" type="password" className="form-control" required/>
                                 <button onClick={this.togglePassword} type="button" id="btnToggle" className="eyeIcon fa fa-eye toggle">
                                 </button>
                             </div>                                

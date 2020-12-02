@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+import { Link } from "react-router-dom";
 
 
 class Profile extends React.Component{
@@ -28,7 +28,8 @@ class Profile extends React.Component{
 
                                 <div className="btn-section-container clearfix">
                                     <div className="pull-right">
-                                        <a href="" className="question-btn">Edit</a>
+                                        <Link to="/edit-user-profile" className="question-btn">Edit</Link>
+                                        {/*<a href="" className="question-btn">Edit</a>*/}
                                     </div>
                                 </div>
                                 

@@ -37,7 +37,7 @@ class UserManage extends React.Component{
                     <div className="forum-section-container clearfix">
                         
                         <div className="forum-title">
-                            <h3>Manage Category</h3>
+                            <h3>Manage Users</h3>
                         </div>
                         
                         <div className="tbl-container">

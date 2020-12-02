@@ -16,6 +16,7 @@
 }
 button.btn{
     min-width: 100px;
+    margin-right: 10px;
 }
 
 
@@ -948,10 +949,14 @@ footer.footer-section .footer-widget-heading h3::before {
   background: #ff5e14;
 }
 footer.footer-section .footer-widget ul li {
-  display: inline-block;
-  /*float: left;*/
-  width: 50%;
-  margin-bottom: 10px;
+    display: inline-block;
+    /*float: left;*/
+    width: 50%;
+    margin-bottom: 10px;
+
+
+    display: block;
+    width: 100%;
 }
 footer.footer-section .footer-widget ul li a:hover{
   color: #ff5e14;
@@ -1304,3 +1309,6 @@ footer.footer-section .footer-menu li a {
 .question-form .login-form .form-group{
     position: relative;
 }
+
+
+
