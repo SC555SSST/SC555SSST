@@ -49,6 +49,22 @@ class CategoryRepository
         $thread->categories()->sync($categoryArr);
     }
 
+    public function findThreadsByCategory(Category $category){
+        $arr = array();
+        //var_dump($category->threads);
+        //var_dump();
+
+        $threads = $category->threads()->orderBy('created_at','desc')->get();
+        foreach($threads as $thread){
+            $arr[] = $thread;
+
+        }
+        return $arr;
+    }
+
+
+
+
 }
 
 

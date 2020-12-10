@@ -9,16 +9,22 @@ use App\Models\Category;
 use App\Models\Thread;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ThreadRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
 
 class ThreadService
 {
     private $threadRepository;
     private $categoryRepository;
+    private $userRepository;
 
-    public function __construct(ThreadRepository $threadRepository,CategoryRepository $categoryRepository) {
+    public function __construct(ThreadRepository $threadRepository,
+                                CategoryRepository $categoryRepository,
+                                UserRepository $userRepository) {
+
         $this->threadRepository = $threadRepository;
         $this->categoryRepository  = $categoryRepository;
+        $this->userRepository  = $userRepository;
     }
 
     public function view($threadId){
@@ -123,9 +129,70 @@ class ThreadService
         $deleteResult = $this->threadRepository->deleteById($threadId);
 
         if($deleteResult==false){
-            throw new CustomException('Internal server error',504);
+            throw new CustomException('Internal server error',500);
         }
-        //todo delete associated posts also
     }
+
+
+    public function getThreadPosts($id){
+        $thread         = $this->threadRepository->findById($id);
+        if($thread ===null){
+            throw new CustomException('Resource does not exist',404);
+        }else{
+            $arr =  array();
+            $threadPosts         = $this->threadRepository->findThreadPosts($thread);
+
+            //var_dump($threadPosts);
+
+            foreach($threadPosts as $threadPost){
+                //var_dump($threadPost);
+                $userRepo = new UserRepository();
+                $userInfo = $userRepo->findUserById($threadPost['user_id']);
+
+                $arr[] = array(
+                                'is_useful'     =>$threadPost->is_useful,
+                                'post_text'     =>$threadPost->post_text,
+                                'id'            =>$threadPost->id,
+                                'user'      =>array(
+                                    'id'           =>$userInfo->id,
+                                    'username'     =>$userInfo->username,
+                                    'points'       =>$userInfo->points,
+                                    'account_type' =>$userInfo->role->role_name,
+                                )
+                            );
+            }
+            return $arr;
+        }
+    }
+
+    public function threadSearch($threadTitle){
+        $threads = $this->threadRepository->threadsSearchByName($threadTitle);
+        $threadArr = array();
+
+        foreach ($threads as $thread){
+            $arr            = $this->threadRepository->findThreadCategories($thread);
+            $userArr = array();
+            $threadOwner    =  $this->userRepository->getThreadOwner($thread);
+            if(!empty($threadOwner)){
+                $userArr= array(
+                    'id'            =>$threadOwner->id,
+                    'username'      =>$threadOwner->username,
+                    'points'        =>$threadOwner->points,
+                    'account_type'  =>$threadOwner->role->role_name,
+
+                );
+            }
+
+            $threadArr[] = array(
+                'id'            => $thread->id,
+                'title'         => $thread->title,
+                'text'          => $thread->text,
+                'categories'    => $arr,
+                'user'          => $userArr
+            );
+        }
+        return $threadArr;
+    }
+
 
 }

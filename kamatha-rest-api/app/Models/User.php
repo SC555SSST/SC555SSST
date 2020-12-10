@@ -24,7 +24,8 @@ class User extends Authenticatable
         'username',
         'gender',
         'badge',
-        'points'
+        'points',
+        'api_token'
     ];
 
     /**
@@ -56,7 +57,16 @@ class User extends Authenticatable
     */
 
 
+    public function threads(){
+        return $this->hasMany('App\Models\Thread','user_id','id');
+    }
 
+    public function posts(){
+        return $this->hasMany('App\Models\Post','user_id','id');
+    }
 
+    public function role(){
+        return $this->belongsTo('App\Models\Role','role_id','id');
+    }
 
 }

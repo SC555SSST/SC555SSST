@@ -3,105 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CustomException;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Services\CategoryService;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Services\PostService;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
-    private $categoryService;
 
-    public function __construct(CategoryService $categoryService)
-    {
-        $this->categoryService = $categoryService;
-        /*
-        $this->middleware('jwt.auth',
-            ['only' => ['store', 'update', 'destroy'] ]
-        );
-        */
-    }
+    private $postService;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        try{
-            $categories = $this->categoryService->viewAll();
-            $response = array(
-                'status'    => 'success',
-                'data'      => $categories,
-                'message'   => ''
-            );
-
-            if($categories->count() == 0){
-                return response()->json($response, 404);
-            }else{
-                return response()->json($response, 200);
-            }
-
-        }catch(\Exception $exception){
-            $response = array(
-                'status'    => 'Error',
-                'message'   => 'server error',
-            );
-            return response()->json($response, 500);
-        }
+    public function __construct(PostService $postService){
+        $this->postService = $postService;
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         try{
             $validator = Validator::make($request->all(), [
-                'category' => 'required',
+                'text'       => 'required',
+                'thread_id'  => 'required',
+                'user_id'    => 'required',
             ]);
 
             if($validator->fails()){
                 throw new ValidationException($validator);
             }
 
-            $insertedRecord = $this->categoryService->add($request->get('category'));
+            $text           = $request->get('text');
+            $userId         = $request->get('user_id');
+            $threadId       = $request->get('thread_id');
+
+            $insertedRecord = $this->postService->add($text,$userId,$threadId);
 
             $response = array(
                 'status'    => 'Success',
                 'data'      => $insertedRecord,
-                'message'   => 'category added successfully'
+                'message'   => 'Post added successfully'
             );
 
             return response()->json($response, 201);
 
         }catch (ValidationException $exception) {
+
             $response = array(
                 'status'    => 'Error',
                 'message'   => $exception->getMessage(),
             );
             return response()->json($response, 400);
+        }catch(CustomException $exception){
 
-        }catch(\Exception $exception){
-            $exceptionCode = ($exception->getCode()==0)?500:$exception->getCode();
-            $message = $exception->getMessage();
-            //$message = 'server error';
             $response = array(
                 'status'    => 'Error',
-                'message'   => $message,
+                'message'   => $exception->getMessage(),
             );
-            return response()->json($response, $exceptionCode);
-        }
+            return response()->json($response, $exception->getCode());
+        }catch(\Exception $exception){
 
+            $response = array(
+                'status'    => 'Error',
+                'message'   => 'Internal server error',
+            );
+            return response()->json($response, 500);
+        }
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  \App\Models\Post  $post
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -115,12 +93,12 @@ class CategoryController extends Controller
                 throw new \Exception('The given data was invalid',400);
             }
 
-            $category = $this->categoryService->view($id);
+            $post = $this->postService->view($id);
 
-            if($category){
+            if($post){
                 $response = array(
                     'status'    => 'Success',
-                    'data'      => $category,
+                    'data'      => $post,
                     'message'   => ''
                 );
                 return response()->json($response, 200);
@@ -136,12 +114,12 @@ class CategoryController extends Controller
         }catch (\Exception $e) {
 
             $response = array(
-                'status'    => 'Error',
+                'status'    => 'error',
                 'message'   => 'Internal server error',
+                //'message'   => $e->getMessage(),
             );
             return response()->json($response, 500);
         }
-
     }
 
     /**
@@ -162,45 +140,60 @@ class CategoryController extends Controller
             }
 
             $validator = Validator::make($request->all(), [
-                'category'  => 'required',
+                'text'       => 'required',
+                'thread_id'  => 'required',
+                'user_id'    => 'required',
+                'is_useful'  => 'required',
             ]);
 
             if($validator->fails()){
                 throw new ValidationException($validator);
             }
 
-            $updatedRecord = $this->categoryService->update($request->get('category'),$id);
+            $text           = $request->get('text');
+            $userId         = $request->get('user_id');
+            $threadId       = $request->get('thread_id');
+            $isUseful        = $request->get('is_useful');
+
+            $updatedRecord = $this->postService->update($text,$userId,$threadId,$isUseful,$id);
 
             $response = array(
                 'status'    => 'Success',
                 'data'      => $updatedRecord,
-                'message'   => 'category updated successfully'
+                'message'   => 'Post updated successfully'
             );
 
-            return response()->json($response, 200);
+            return response()->json($response, 201);
 
         }catch (ValidationException $exception) {
+
             $response = array(
                 'status'    => 'Error',
                 'message'   => $exception->getMessage(),
             );
             return response()->json($response, 400);
-        }catch(\Exception $exception){
-            $exceptionCode = ($exception->getCode()==0)?500:$exception->getCode();
-            $message = $exception->getMessage();
-            //$message = 'server error';
+        }catch(CustomException $exception){
+
             $response = array(
                 'status'    => 'Error',
-                'message'   => $message,
+                'message'   => $exception->getMessage(),
             );
-            return response()->json($response, $exceptionCode);
-        }
+            return response()->json($response, $exception->getCode());
+        }catch(\Exception $exception){
 
+            $response = array(
+                'status'    => 'Error',
+                'message'   => 'Internal server error',
+                //'message'   => $exception->getMessage(),
+            );
+            return response()->json($response, 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\Models\Post  $post
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -211,14 +204,14 @@ class CategoryController extends Controller
             if(is_numeric ($id)){
                 $id = intval($id);
             }else{
-                throw new \Exception('The given data was invalid',400);
+                throw new CustomException('The given data was invalid',400);
             }
 
-            $this->categoryService->delete($id);
+            $this->postService->delete($id);
 
             /*
             $response = array(
-                'status'    => 'Success',
+                'status'    => 'success',
                 'data'      => '',
                 'message'   => 'category deleted successfully'
             );
@@ -227,53 +220,20 @@ class CategoryController extends Controller
             return response()->json($response, 204);
 
 
-        }catch (\Exception $e) {
-
-            $response = array(
-                'status'    => 'Error',
-                'message'   => 'Internal server error',
-            );
-            return response()->json($response, 500);
-        }
-
-    }
-
-
-
-    public function threadsBelongToCategory($id)
-    {
-
-        try{
-
-            if(is_numeric ($id)){
-                $id = intval($id);
-            }else{
-                throw new \Exception('The given data was invalid',400);
-            }
-
-            $response = $this->categoryService->getThreadsBelongToCategory($id);
-            return response()->json($response, 200);
-
         }catch (CustomException $e) {
 
             $response = array(
-                'status'    => 'Error',
+                'status'    => 'error',
                 'message'   => $e->getMessage(),
             );
             return response()->json($response, $e->getCode());
         }catch (\Exception $e) {
 
             $response = array(
-                'status'    => 'Error',
-                //'message'   => 'Internal server error',
-                'message'   => $e->getMessage(),
+                'status'    => 'error',
+                'message'   => 'Internal server error',
             );
             return response()->json($response, 500);
         }
-
-        // dd('threadsBelongToCategory - '.$id);
-        //category/5/threads    --> threadcategories[]
-
     }
-
 }

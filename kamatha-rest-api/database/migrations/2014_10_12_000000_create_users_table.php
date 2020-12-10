@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', [ 'male' , 'female']);
             $table->string('badge')->nullable();
             $table->integer('points')->default(0);
-            $table->string('api_token', 60)->unique(); // Add api_token field
+            $table->string('api_token')->nullable(); // Add api_token field
 
 
 

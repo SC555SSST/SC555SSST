@@ -27,6 +27,22 @@ class ThreadRepository
         return $arr;
     }
 
+    public function findThreadPosts(Thread $thread){
+        $arr = array();
+
+        foreach ($thread->posts as $post){
+            /*
+            $arr[] = array(
+                'id'        =>  $post->id,
+                'post_text' =>  $post->post_text,
+                'is_useful' =>  $post->is_useful,
+                'user_id'   =>  $post->user_id,
+            );*/
+            $arr[] = $post;
+        }
+        return $arr;
+    }
+
 
     public function add($title,$text,$userId,$categoryArr){
 
@@ -86,12 +102,20 @@ class ThreadRepository
 
     public function deleteById($id){
 
-        try
-        {
-            DB::beginTransaction ();
+        try{
 
+            DB::beginTransaction ();
+            //dd($id);
             $thread = $this->findById($id);
             $thread->categories()->detach();
+
+            //delete all posts belong to thread
+            $postRepository = new PostRepository();
+            foreach ($thread->posts as $post){
+                $postRepository->deleteById($post->id);
+            }
+
+            //finally delete thread
             $thread->delete($id);
 
             DB::commit();
@@ -102,4 +126,12 @@ class ThreadRepository
             return array('isDelete' =>false,'id'=>$id);
         }
     }
+
+    public function threadsSearchByName($threadTitle){
+        return Thread::where('title', 'like', '%' . $threadTitle . '%')->get();
+    }
+
+
+
+
 }

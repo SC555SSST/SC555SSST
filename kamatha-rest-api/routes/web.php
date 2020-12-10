@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,9 +13,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use  App\Models\Thread;
+
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $post = Post::find(1);
+    //var_dump($post->thread);
+
+
+
+    $thread = Thread::find(4);
+    foreach ($thread->posts as $post){
+        var_dump($post->id);
+    }
+
+    //return view('welcome');
 });
 
 

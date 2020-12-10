@@ -8,14 +8,15 @@ use App\Services\ThreadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\Console\Input\Input;
 
 class ThreadController extends Controller
 {
-     private $ThreadService;
+     private $threadService;
 
-    public function __construct(ThreadService $ThreadService)
+    public function __construct(ThreadService $threadService)
     {
-        $this->ThreadService = $ThreadService;;
+        $this->threadService = $threadService;;
         /*
         $this->middleware('jwt.auth',
             ['only' => ['store', 'update', 'destroy'] ]
@@ -31,9 +32,9 @@ class ThreadController extends Controller
     public function index()
     {
         try{
-            $threadInfo = $this->ThreadService->viewAll();
+            $threadInfo = $this->threadService->viewAll();
             $response = array(
-                'status'    => 'success',
+                'status'    => 'Success',
                 'data'      => $threadInfo,
                 'message'   => ''
             );
@@ -46,7 +47,7 @@ class ThreadController extends Controller
 
         }catch(\Exception $exception){
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => 'server error',
             );
             //return response()->json($response, 500);
@@ -79,10 +80,10 @@ class ThreadController extends Controller
             $userId     = $request->get('userId');
             $categoryArr    = $request->get('category');
 
-            $insertedRecord = $this->ThreadService->add($title,$text,$userId,$categoryArr);
+            $insertedRecord = $this->threadService->add($title,$text,$userId,$categoryArr);
 
             $response = array(
-                'status'    => 'success',
+                'status'    => 'Success',
                 'data'      => $insertedRecord,
                 'message'   => 'category added successfully'
             );
@@ -91,7 +92,7 @@ class ThreadController extends Controller
 
         }catch (ValidationException $exception) {
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => $exception->getMessage(),
             );
             return response()->json($response, 400);
@@ -101,7 +102,7 @@ class ThreadController extends Controller
             $message = $exception->getMessage();
             //$message = 'server error';
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => $message,
             );
             return response()->json($response, $exceptionCode);
@@ -125,18 +126,18 @@ class ThreadController extends Controller
                 throw new \Exception('The given data was invalid',400);
             }
 
-            $thread = $this->ThreadService->view($id);
+            $thread = $this->threadService->view($id);
 
             if($thread){
                 $response = array(
-                    'status'    => 'success',
+                    'status'    => 'Success',
                     'data'      => $thread,
                     'message'   => ''
                 );
                 return response()->json($response, 200);
             }else{
                 $response = array(
-                    'status'    => 'error',
+                    'status'    => 'Error',
                     'data'      => null,
                     'message'   => 'Resource does not exist'
                 );
@@ -146,14 +147,14 @@ class ThreadController extends Controller
         }catch (CustomException $e) {
 
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => $e->getMessage(),
             );
             return response()->json($response, $e->getCode());
         }catch (\Exception $e) {
 
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => 'Internal server error',
             );
             return response()->json($response, 500);
@@ -194,11 +195,11 @@ class ThreadController extends Controller
             $userId     = $request->get('userId');
             $categoryArr    = $request->get('category');
 
-            $updatedRecord = $this->ThreadService->update($title,$text,$userId,$categoryArr,$id);
+            $updatedRecord = $this->threadService->update($title,$text,$userId,$categoryArr,$id);
 
 
             $response = array(
-                'status'    => 'success',
+                'status'    => 'Success',
                 'data'      => $updatedRecord,
                 'message'   => 'category updated successfully'
             );
@@ -207,7 +208,7 @@ class ThreadController extends Controller
 
         }catch (ValidationException $exception) {
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => $exception->getMessage(),
             );
             return response()->json($response, 400);
@@ -216,7 +217,7 @@ class ThreadController extends Controller
             $message = $exception->getMessage();
             //$message = 'server error';
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => $message,
             );
             return response()->json($response, $exceptionCode);
@@ -240,7 +241,7 @@ class ThreadController extends Controller
                 throw new \Exception('The given data was invalid',400);
             }
 
-            $this->ThreadService->delete($id);
+            $this->threadService->delete($id);
             $response = null;
             return response()->json($response, 204);
 
@@ -248,7 +249,7 @@ class ThreadController extends Controller
         }catch (\Exception $e) {
 
             $response = array(
-                'status'    => 'error',
+                'status'    => 'Error',
                 'message'   => 'Internal server error',
             );
             return response()->json($response, 500);
@@ -256,6 +257,82 @@ class ThreadController extends Controller
 
     }
 
+    public function getThreadPosts($id){
+
+        try{
+            if(is_numeric ($id)){
+                $id = intval($id);
+            }else{
+                throw new \Exception('The given data was invalid',400);
+            }
+
+            $response = $this->threadService->getThreadPosts($id);
+            return response()->json($response, 200);
+
+        }catch (CustomException $e) {
+
+            $response = array(
+                'status'    => 'Error',
+                'message'   => $e->getMessage(),
+            );
+            return response()->json($response, $e->getCode());
+        }catch (\Exception $e) {
+
+            $response = array(
+                'status'    => 'Error',
+                //'message'   => 'Internal server error',
+                'message'   => $e->getMessage(),
+            );
+            return response()->json($response, 500);
+        }
+
+
+    }
+
+    public function threadSearch(Request $request){
+
+        try{
+            if($request->has('q')){
+                $threadTitle = $request->get('q');
+
+                if($threadTitle == null){
+                    throw new CustomException('Invalid Search query',400);
+                }else{
+                    $searchedThreads = $this->threadService->threadSearch($threadTitle);
+
+                    if(empty($searchedThreads)){
+                        throw new CustomException('No Results Found',204);
+                    }else{
+                        $response = array(
+                            'status'    => 'Success',
+                            'data'      => $searchedThreads,
+                            'message'   => ''
+                        );
+                        return response()->json($response, 200);
+                    }
+                }
+            }else{
+                throw new CustomException('Invalid Search query',400);
+            }
+        }catch (CustomException $e) {
+
+            $response = array(
+                'status'    => 'Error',
+                'message'   => $e->getMessage(),
+            );
+            return response()->json($response, $e->getCode());
+        }catch (\Exception $e) {
+
+            $response = array(
+                'status'    => 'Error',
+                //'message'   => 'Internal server error',
+                'message'   => $e->getMessage(),
+            );
+            return response()->json($response, 500);
+        }
+
+
+    }
 
 
 
