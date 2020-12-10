@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * installed later Service Providers...
+         */
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 
     /*
@@ -227,6 +231,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        //'JWTAuth' => 'TymonJWTAuthFacadesJWTAuth',
+        //'JWTFactory' => 'TymonJWTAuthFacadesJWTFactory',
     ],
 
 ];

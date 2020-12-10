@@ -56,6 +56,34 @@ Route::get('/sw', function () {
      ]);
 
      Route::post('users', [AuthController::class, 'store']);
+     Route::post('login', [AuthController::class, 'login']);
+     Route::post('check', [AuthController::class, 'check']);
+     Route::post('logout', [AuthController::class, 'logout']);
+
+    /*
+     Route::group([
+
+         'middleware' => 'api',
+         'namespace' => 'App\Http\Controllers',
+         'prefix' => 'auth'
+
+     ], function ($router) {
+
+
+         Route::post('logout', 'AuthController@logout');
+         Route::post('refresh', 'AuthController@refresh');
+         Route::post('me', 'AuthController@me');
+
+     });
+    */
+
+
+
+
+
+
+
+
 
      Route::get('users/{id}', [UserController::class, 'show']);
      Route::get('users', [UserController::class, 'index']);
