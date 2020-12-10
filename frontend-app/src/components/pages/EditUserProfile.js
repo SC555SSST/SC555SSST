@@ -43,7 +43,7 @@ class EditUserProfile extends React.Component{
                             <form className="login-form col-md-9">
                                 <div className="form-group">
                                     <label htmlFor="text" className="control-label">Full name</label>
-                                    <input id="fullname" name="fullname" type="text" className="form-control"/>
+                                    <input required id="fullname" name="fullname" type="text" className="form-control"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="text" className="control-label">Username</label>
@@ -60,7 +60,7 @@ class EditUserProfile extends React.Component{
 
                                 <div className="form-group">
                                     <label htmlFor="text" className="control-label">Email</label>
-                                    <input id="email" name="email" type="text" className="form-control"/>
+                                    <input required id="email" name="email" type="email" className="form-control"/>
                                 </div>
 
                                 <div className="form-group">
@@ -79,7 +79,7 @@ class EditUserProfile extends React.Component{
                                     <label htmlFor="radio" className="control-label">User account type</label> 
                                     <div>
                                         <label className="radio-inline">
-                                            <input type="radio" name="account_type" value="farmer"/>
+                                            <input type="radio" name="account_type" value="farmer" required/>
                                             Farmer
                                         </label>
                                         <label className="radio-inline">
@@ -91,7 +91,8 @@ class EditUserProfile extends React.Component{
 
                                 <div className="form-group">
                                     <label htmlFor="select" className="control-label">User badge</label> 
-                                    <select id="user_badge" name="user_badge" className="select form-control">
+                                    <select required id="user_badge" name="user_badge" className="select form-control">
+                                        <option value="" disabled selected>Select your option</option>                                        
                                         <option value="badge1">badge1</option>
                                         <option value="badge2">badge2</option>
                                         <option value="badge3">badge3</option>

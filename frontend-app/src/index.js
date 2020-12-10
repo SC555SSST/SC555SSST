@@ -16,11 +16,11 @@ import App from './App';
 
 
 import reportWebVitals from './reportWebVitals';
-
+//<React.StrictMode></React.StrictMode>,
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  
+    <App />,
+  
   document.getElementById('root')
 );
 

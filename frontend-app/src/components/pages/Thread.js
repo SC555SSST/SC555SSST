@@ -13,7 +13,18 @@ class Thread extends React.Component{
 
 
          
-    
+    togglePostUsefullness = (event) =>{
+        console.log(event.target);
+        console.log(event.target.parentNode);
+        
+        let parentDiv = event.target.parentNode;
+        parentDiv.classList.toggle("active");
+        //console.log(event.target.parentNode.querySelector('input[name="password"]'));
+        //let parentDiv = 
+    };
+
+
+
     clickReplyBtn = (event) =>{
         
         this.answerFormRef.current.scrollIntoView({
@@ -117,7 +128,7 @@ class Thread extends React.Component{
                                                                 <div className="text-muted small">13 days ago</div>
                                                             </div>
                                                             <div className="ml-3 active check-mark-div">
-                                                                <i className="fa fa-check-circle" aria-hidden="true"></i>
+                                                                <i className="fa fa-check-circle" aria-hidden="true" onClick={this.togglePostUsefullness}></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,7 +167,7 @@ class Thread extends React.Component{
                                                                 <div className="text-muted small">13 days ago</div>
                                                             </div>
                                                             <div className="ml-3 check-mark-div">
-                                                                <i className="fa fa-check-circle" aria-hidden="true"></i>
+                                                                <i className="fa fa-check-circle" aria-hidden="true" onClick={this.togglePostUsefullness}></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -192,7 +203,7 @@ class Thread extends React.Component{
 
                                                     <form className="ask-question-form" id="reply_form">
                                                         <div className="form-group">
-                                                            <textarea id="reply_text" name="reply_text" cols="40" rows="10" className="form-control"></textarea>
+                                                            <textarea required id="reply_text" name="reply_text" cols="40" rows="10" className="form-control"></textarea>
                                                         </div>
                                                         <div className="form-group">
                                                             <button name="submit" type="submit" className="btn submit">Submit</button>

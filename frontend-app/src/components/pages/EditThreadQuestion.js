@@ -19,11 +19,11 @@ class EditThreadQuestion extends React.Component{
                             <form className="ask-question-form col-md-9">
                                 <div className="form-group">
                                     <label htmlFor="text" className="control-label">Question Title</label>
-                                    <input id="q_title" name="q_title" type="text" className="form-control" value="Thread title"/>
+                                    <input required id="q_title" name="q_title" type="text" className="form-control" value="Thread title"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="textarea" className="control-label">Question text</label> 
-                                    <textarea id="q_text" name="q_text" cols="40" rows="8" className="form-control">Include all the information someone would need to answer your question Include. all the information someone would need to answer your question</textarea>
+                                    <textarea required id="q_text" name="q_text" cols="40" rows="8" className="form-control">Include all the information someone would need to answer your question Include. all the information someone would need to answer your question</textarea>
                                 </div>
                                 
                                                                  

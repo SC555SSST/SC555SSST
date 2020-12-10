@@ -178,6 +178,7 @@
     <script type="text/javascript">
         console.log($);
 
+        /*
         (function(){
             $('#msbo').on('click', function(){
                 $('body').toggleClass('msb-x');
@@ -185,7 +186,7 @@
         }());
 
 
-        /*
+        
         $('._thread_reply_btn').on('click', function(){
             $('html, body').animate({
                 scrollTop: $("#reply_form").offset().top -200
@@ -209,6 +210,10 @@
                 icon.removeClass("fa-eye-slash");
             }            
         });
+
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("year-div").innerHTML = n;
          */
 
 
@@ -248,9 +253,7 @@
         });
 
 
-        var d = new Date();
-        var n = d.getFullYear();
-        document.getElementById("year-div").innerHTML = n;
+        
     </script>
 
 </body>

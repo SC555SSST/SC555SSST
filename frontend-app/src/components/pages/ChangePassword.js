@@ -43,17 +43,17 @@ class ChangePassword extends React.Component{
                     <form className="change-pw-form col-md-9">
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">Old password</label>
-                            <input id="old_pw" name="old_pw" type="password" className="form-control"/>
+                            <input required id="old_pw" name="old_pw" type="password" className="form-control"/>
                             <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">New password</label>
-                            <input id="new_pw" name="new_pw" type="password" className="form-control"/>
+                            <input required id="new_pw" name="new_pw" type="password" className="form-control"/>
                             <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
                         <div className="form-group">
                             <label htmlFor="text" className="control-label">Confirm new password</label>
-                            <input id="confirm_new_pw" name="confirm_new_pw" type="password" className="form-control"/>
+                            <input required id="confirm_new_pw" name="confirm_new_pw" type="password" className="form-control"/>
                             <button onClick={this.togglePassword} type="button" id="" className="eyeIcon fa fa-eye toggle"></button>
                         </div>
 

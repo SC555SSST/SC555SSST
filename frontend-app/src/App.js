@@ -47,9 +47,9 @@ function App() {
             <TopNav/>
             <LeftSidebar/>
 
-            <div class="mcw clearfix container-fluid">
-                <div class="row">
-                    <div class="col-md-10 page-content clearfix">
+            <div className="mcw clearfix container-fluid">
+                <div className="row">
+                    <div className="col-md-10 page-content clearfix">
                         <noscript>You need to enable JavaScript to run this app.</noscript>
                         
                         {/*<!-- react component : page content loads here-->*/} 
@@ -89,7 +89,7 @@ function App() {
 
                 </div>
 
-                <div class="footer_row row">
+                <div className="footer_row row">
                     <Footer/>
                 </div>
             </div>

@@ -2,9 +2,36 @@ import React from 'react';
 import AWN from "awesome-notifications";
 import 'awesome-notifications/dist/style.css';
 
-//console.log(NODE_PATH);
+import { Modal, Button } from "react-bootstrap";
+//import 'bootstrap/dist/css/bootstrap.css';
+
+
+const {REACT_APP_REST_API_URL} = process.env
+console.log(REACT_APP_REST_API_URL);
+
+
 class Page404 extends React.Component{
-	
+    
+    constructor(){
+        super();
+        this.state = {
+            showHide : false
+        }
+    }
+
+
+
+    handleModalShowHide() {
+        this.setState({ showHide: !this.state.showHide })
+    }
+
+    toggleModal = () => {
+        this.setState(prevState => ({
+          showHide: !prevState.showHide
+        }));
+    };
+
+
 
     notificationSuccess = (event) =>{
        //alert();
@@ -51,6 +78,25 @@ class Page404 extends React.Component{
                         <button onClick={this.notificationError} type="button" id="btnToggle" className="btn">notificationError</button> <br/><br/>                
 
                     </div>
+                </div>
+                 
+
+                <div>
+                    <Button variant="primary" onClick={() => this.handleModalShowHide()}>Launch demo modal</Button>
+                    <Modal show={this.state.showHide} onHide={this.toggleModal}>
+                        <Modal.Header closeButton onClick={() => this.handleModalShowHide()}>
+                        <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="secondary" onClick={() => this.handleModalShowHide()}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={() => this.handleModalShowHide()}>
+                            Save Changes
+                        </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
 
             </React.Fragment>    
