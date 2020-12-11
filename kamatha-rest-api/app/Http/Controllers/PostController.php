@@ -16,6 +16,15 @@ class PostController extends Controller
 
     public function __construct(PostService $postService){
         $this->postService = $postService;
+        $this->middleware('check.login',
+            ['only' => ['store']]
+        );
+
+        //owner - update destroy with time limit
+        //admin - update destroy
+        $this->middleware('modify.posts',
+            ['only' => ['update','destroy']]
+        );
     }
 
     /**

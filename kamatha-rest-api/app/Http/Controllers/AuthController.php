@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CustomException;
 use App\Services\AuthService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -15,15 +16,27 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
 {
     private $authService;
+    private $userService;
 
-    public function __construct(AuthService $authService)
+    public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
-        /*
-        $this->middleware('jwt.auth',
-            ['only' => ['store', 'update', 'destroy'] ]
+        $this->userService = $userService;
+
+
+        //$this->middleware('user.permissions',['only' => ['passwordChange', 'logout']]);
+        $this->middleware('check.guest',
+            ['only' => ['login','store']]
         );
-        */
+        $this->middleware('check.login',
+            ['only' => ['check','tokenDecode','logout','passwordChange']]
+        );
+
+
+        //$this->middleware('jwt.auth',['only' => ['passwordChange', 'logout']]);
+
+        //$this->middleware('auth:api', ['except' => ['store']]);
+        /**/
     }
 
 
@@ -40,6 +53,7 @@ class AuthController extends Controller
     //when register
     public function store(Request $request)
     {
+        dd('store');
         try{
             $validator = Validator::make($request->all(), [
                 'fullname'  => 'required',
@@ -51,13 +65,18 @@ class AuthController extends Controller
             ]);
 
             if($validator->fails()){
-                throw new ValidationException($validator);
+                return response()->json([
+                    'status' => 'Error',
+                    'message' => 'Input data is not in a valid format',
+                    'Validation Errors' => $validator->errors()
+
+                ], 400);
             }
 
             $userDetailsArr = array(
                 'fullname'       => $request->get('fullname'),
                 'email'          => $request->get('email'),
-                'password'       => $request->get('password'),
+                'password'       => bcrypt($request->get('password')),
                 'username'       => $request->get('username'),
                 'gender'         => $request->get('gender'),
                 'badge'          => $request->get('badge'),
@@ -74,13 +93,6 @@ class AuthController extends Controller
 
             return response()->json($response, 201);
 
-        }catch (ValidationException $exception) {
-
-            $response = array(
-                'status'    => 'Error',
-                'message'   => $exception->getMessage(),
-            );
-            return response()->json($response, 400);
         }catch(CustomException $exception){
 
             $response = array(
@@ -103,6 +115,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
+        //dd('login');
         $credentials = $request->only('email', 'password');
 
         $validator = Validator::make($credentials, [
@@ -135,10 +149,17 @@ class AuthController extends Controller
         }
     }
 
+    //todo ???
     public function check(Request $request){
+
+        //dd($this->getAuthUser());
         $authHeader = $request->header('Authorization');
-        //$token = $request->bearerToken();
+        $token = $request->bearerToken();
+        //dd($request->input('token'));
+        //dd($this->guard()->check());
+        $token = JWTAuth::getToken();
         //dd($token);
+        dd(JWTAuth::getPayload($token)->toArray());
 
         try {
             $user = JWTAuth::parseToken()->authenticate();
@@ -151,6 +172,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        dd('6');
         try {
             $this->guard()->logout();
             //JWTAuth::invalidate($request->token);
@@ -208,5 +230,65 @@ class AuthController extends Controller
             'expires_in' => $this->guard()->factory()->getTTL() * 60
         ]);
     }
+
+
+    public function passwordChange(Request $request,$userId){
+        dd('7');
+        try{
+            if(is_numeric ($userId)){
+                $userId = intval($userId);
+            }else{
+                throw new \Exception('The given data was invalid',400);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'old_pw'  => 'required',
+                'new_pw'  => 'required',
+                'new_pw_confirm'  => 'required|same:new_pw'
+            ]);
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => 'Error',
+                    'message' => 'Input data is not in a valid format',
+                    'Validation Errors' => $validator->errors()
+                ], 400);
+            }
+
+            $new_pw = bcrypt($request->get('new_pw'));
+            $this->userService->changePw($new_pw,$userId);
+
+            $response = array(
+                'status'    => 'Success',
+                'message'   => 'User password updated successfully'
+            );
+
+            return response()->json($response, 200);
+
+        }catch(CustomException $exception){
+
+            $response = array(
+                'status'    => 'Error',
+                'message'   => $exception->getMessage(),
+            );
+            return response()->json($response, $exception->getCode());
+        }catch(\Exception $exception){
+
+            $response = array(
+                'status'    => 'Error',
+                //'message'   => 'Internal server error',
+                'message'   => $exception->getMessage(),
+            );
+            return response()->json($response, 500);
+        }
+
+    }
+
+
+    public function tokenDecode()
+    {
+        return $this->getAuthUser();
+    }
+
 
 }

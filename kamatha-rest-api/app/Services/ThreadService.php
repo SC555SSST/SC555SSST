@@ -26,7 +26,7 @@ class ThreadService
         $this->categoryRepository  = $categoryRepository;
         $this->userRepository  = $userRepository;
     }
-
+    //todo add user array
     public function view($threadId){
         $thread         = $this->threadRepository->findById($threadId);
         if($thread ===null){
@@ -34,11 +34,23 @@ class ThreadService
         }
         $threadCatArr   = $this->threadRepository->findThreadCategories($thread);
 
+        $userArr = array();
+        $threadOwner    =  $this->userRepository->getThreadOwner($thread);
+        if(!empty($threadOwner)){
+            $userArr = array(
+                'id'            =>$threadOwner->id,
+                'username'      =>$threadOwner->username,
+                'points'        =>$threadOwner->points,
+                'account_type'  =>$threadOwner->role->role_name,
+
+            );
+        }
+
         $threadInfo = array(
             'id'            => $thread->id,
             'title'         => $thread->title,
             'text'          => $thread->text,
-            'user_id'       => $thread->user_id,
+            'user'          => $userArr,
             'categories'    => $threadCatArr
         );
         return $threadInfo;

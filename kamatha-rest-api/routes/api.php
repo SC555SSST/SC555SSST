@@ -55,10 +55,15 @@ Route::get('/sw', function () {
          'except' => ['create','edit','index']
      ]);
 
+
+     Route::get('token-decode', [AuthController::class, 'tokenDecode']);
      Route::post('users', [AuthController::class, 'store']);
      Route::post('login', [AuthController::class, 'login']);
      Route::post('check', [AuthController::class, 'check']);
      Route::post('logout', [AuthController::class, 'logout']);
+
+
+
 
     /*
      Route::group([
@@ -84,7 +89,8 @@ Route::get('/sw', function () {
 
 
 
-
+     Route::put('users/{id}/password', [AuthController::class, 'passwordChange']);
+     Route::get('users/{id}/roles', [UserController::class, 'getUserRole']);
      Route::get('users/{id}', [UserController::class, 'show']);
      Route::get('users', [UserController::class, 'index']);
      Route::patch('users/{id}', [UserController::class, 'update']);

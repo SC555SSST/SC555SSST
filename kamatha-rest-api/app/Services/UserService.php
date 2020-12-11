@@ -91,5 +91,24 @@ class UserService
         }
     }
 
+    public function changePw($pass,$userId){
+        $user = $this->userRepository->findUserById($userId);
+        if(empty($user)){
+            throw new CustomException('User does not exist',400);
+        }
+        $isUpdated = $this->userRepository->updateUserPass($user,$pass);
+        if(!$isUpdated){
+            throw new CustomException('Internal Server Error',500);
+        }
+    }
+
+    public function getUserRole($userId){
+        $user = $this->userRepository->findUserById($userId);
+        if(empty($user)){
+            return false;
+        }else{
+            return $user->role->role_name;
+        }
+    }
 
 }

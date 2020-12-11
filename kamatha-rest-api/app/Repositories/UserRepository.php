@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
-
+    public function findUserByEmail($email){
+        return User::where('email',$email)->first();
+    }
     public function findUserById($id){
         return User::find($id);
     }
@@ -59,6 +61,12 @@ class UserRepository
         }
     }
 
+    public function updateUserPass(User $user,$pass){
+        $user->password = $pass;
+        $isUpdated = $user->save();
+        return $isUpdated;
+    }
+
     public function deleteById($id){
         //return Post::destroy($id);
     }
@@ -68,5 +76,8 @@ class UserRepository
         return($thread->user);
     }
 
+    public function getPostOwner(Post $post){
+        return($post->user);
+    }
 
 }

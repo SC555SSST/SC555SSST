@@ -17,11 +17,16 @@ class ThreadController extends Controller
     public function __construct(ThreadService $threadService)
     {
         $this->threadService = $threadService;;
-        /*
-        $this->middleware('jwt.auth',
-            ['only' => ['store', 'update', 'destroy'] ]
+        $this->middleware('check.login',
+            ['only' => ['store','threadSearch']]
         );
-        */
+
+        //owner - update destroy with time limit
+        //admin - update destroy
+        $this->middleware('modify.threads',
+            ['only' => ['update','destroy']]
+        );
+
     }
 
     /**
@@ -171,6 +176,7 @@ class ThreadController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         try{
 
             if(is_numeric ($id)){

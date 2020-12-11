@@ -15,11 +15,9 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
-        /*
-        $this->middleware('jwt.auth',
-            ['only' => ['store', 'update', 'destroy'] ]
+        $this->middleware('check.admin',
+            ['only' => ['store','update','destroy']]
         );
-        */
     }
 
     /**
@@ -238,13 +236,9 @@ class CategoryController extends Controller
 
     }
 
-
-
     public function threadsBelongToCategory($id)
     {
-
         try{
-
             if(is_numeric ($id)){
                 $id = intval($id);
             }else{

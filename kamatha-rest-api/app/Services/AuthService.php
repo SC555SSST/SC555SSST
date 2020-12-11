@@ -37,6 +37,15 @@ class AuthService
 
     public function add($userDetailsArr){
 
+            //check use exist by email
+            $isUserExist = $this->userRepository->findUserByEmail($userDetailsArr['email']);
+            //var_dump ($isUserExist);
+            //dd('');
+
+            if(!empty($isUserExist)){
+                throw new CustomException('User already exists',400);
+            }
+
             $insertedResult = $this->userRepository->add($userDetailsArr);
 
             if($insertedResult['isInserted']){

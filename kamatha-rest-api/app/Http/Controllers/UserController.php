@@ -16,11 +16,12 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        /*
-        $this->middleware('jwt.auth',
-            ['only' => ['store', 'update', 'destroy'] ]
+        $this->middleware('check.login',
+            ['only' => ['index']]
         );
-        */
+        $this->middleware('check.admin',
+            ['only' => ['update','show']]
+        );
     }
 
     public function show($id){
@@ -67,6 +68,7 @@ class UserController extends Controller
         }
     }
 
+
     public function update(Request $request,$id){
 
         try{
@@ -77,8 +79,9 @@ class UserController extends Controller
             }
 
             $validator = Validator::make($request->all(), [
-                'badge'    => 'required',
-                'points'   => 'required'
+                'badge'         => 'required',
+                'points'        => 'required',
+                'account_type'  => 'required',
             ]);
 
             if($validator->fails()){
@@ -161,6 +164,26 @@ class UserController extends Controller
                 'message'   => $e->getMessage(),
             );
             return response()->json($response, 500);
+        }
+    }
+
+    public function getUserRole($userId){
+        $usersRole = $this->userService->getUserRole($userId);
+
+        if($usersRole){
+            $response = array(
+                'status'    => 'Success',
+                'data'      => array('user_role' => $usersRole),
+                'message'   => ''
+            );
+            return response()->json($response, 200);
+        }else{
+            $response = array(
+                'status'    => 'Error',
+                'data'      => null,
+                'message'   => 'User does not exist'
+            );
+            return response()->json($response, 400);
         }
     }
 
