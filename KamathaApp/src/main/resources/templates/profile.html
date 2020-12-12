@@ -1,129 +1,490 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/online">
+<html lang="en">
+
 <head>
-    <title th:text="${user.getUsername() + ' | Kamatha'}">Title of profile view</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>Profile | Kamatha</title>
+
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{/lib/bootstrap-fileupload/bootstrap-fileupload.css}" />
+
+  <link th:href="@{/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+  <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
 </head>
+
 <body>
-    <main layout:fragment="content">
-        <article class="container" style="padding: 3% 0 2%;">
-            <header class="row">
-                <div class="col s12">
-                    <blockquote class="flow-text left" th:text="${user.getUsername()} + |&apos; s profile|">Profile</blockquote>
-                    <blockquote class="flow-text right" th:text="|Points: | + ${points}">Commitment</blockquote>
+  <section id="container">
+       <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+     <a href="/index" class="logo"><b>KA<span>MAT</span>HA</b></a>
+      <div class="nav notify-row" id="top_menu">
+        <ul class="nav top-menu">
+          <li id="header_notification_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="/index">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">7</span>
+              </a>
+            <ul class="dropdown-menu extended notification">
+              <div class="notify-arrow notify-arrow-yellow"></div>
+              <li>
+                <p class="yellow">You have 7 new notifications</p>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                  Server Overloaded.
+                  <span class="small italic">4 mins.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="label label-warning"><i class="fa fa-bell"></i></span>
+                  Memory #2 Not Responding.
+                  <span class="small italic">30 mins.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                  Disk Space Reached 85%.
+                  <span class="small italic">2 hrs.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="index.html#">
+                  <span class="label label-success"><i class="fa fa-plus"></i></span>
+                  New User Registered.
+                  <span class="small italic">3 hrs.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="index.html#">See all notifications</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+         <li><a class="logout" data-toggle="modal" data-target="#myModal"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</a></li>
+         <li><a class="logout" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <ul class="sidebar-menu" id="nav-accordion">
+         <p class="centered"><a href="/profile"><img th:src="${avatar}" class="img-circle" width="80"></a></p>
+          <h5 th:text="${username}" class="centered"></h5>
+          <li class="mt">
+            <a href="/profile">
+              <i class="fa fa-dashboard"></i>
+              <span>Profile</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-comment"></i>
+              <span>Topic/Questions</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/topics">View Topics</a></li>
+              <li><a href="/managetopic">Create Topics</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-list"></i>
+              <span>Categories</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/categories">View Categories</a></li>
+              <li><a href="/managecategories">Create Category</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/users">
+              <i class="fa fa-users"></i>
+              <span>Members </span>
+              </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <section id="main-content">
+      <section class="wrapper site-min-height">
+        <div class="row mt">
+          <div class="col-lg-12">
+            <div class="row content-panel">
+              <div class="col-md-4 profile-text mt mb centered">
+                <div class="right-divider hidden-sm hidden-xs">
+                  <h4 th:text="${numberOfHelped}"></h4>
+                  <h6>HELPED</h6>
+                  <h4 th:text="${user.getEmail()}"></h4>
+                  <h6>EMAIL</h6>
+                  <h4 th:text="${user.displayParsedDate()}"></h4>
+                  <h6>REGISTERD SINCE</h6>
                 </div>
-            </header>
-            <section class="row">
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item center">Personal data</li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.getUsername()}">Name</span>
-                            </span>Name:
-                        </li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.displayContentOfOptional()}">Introduction</span>
-                            </span>Introduction:
-                        </li>
-                        <li class="collection-item">
-                            <span class="badge">
-                                <span th:text="${user.displayParsedDate()}">Created date</span>
-                            </span>Registered since:
-                        </li>
-                    </ul>
+              </div>
+              <!-- /col-md-4 -->
+              <div class="col-md-4 profile-text">
+                <h3 th:text="${user.getUsername()}"></h3>
+                <h6 th:text="${user.getRole()}"></h6>
+                <p th:text="${user.displayContentOfOptional()}"></p>
+                <br>
+                <p><a href="users" class="btn btn-danger"><i class="fa fa-unlock-alt"></i> Grant Authority</a></p>
+              </div>
+              <!-- /col-md-4 -->
+              <div class="col-md-4 centered">
+                <div class="profile-pic">
+                  <p><img th:src="${avatar}" class="img-circle"></p>
+                  <p>
+                    <button class="btn btn-theme"><i class="fa fa-check"></i> Follow</button>
+                  </p>
                 </div>
-                <div class="col s12 m6">
-                    <ul class="collection">
-                        <li class="collection-item center strong">Activity</li>
-                        <li class="collection-item">
-                            <a th:href="@{'/topics/user/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfTopics}"></span>
-                                </span>Topics:
-                            </a>
-                        </li>
-                        <li class="collection-item">
-                            <a th:href="@{'/answers/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfAnswers}"></span>
-                                </span>Answers:
-                            </a>
-                        </li>
-                        <li class="collection-item">
-                            <a th:href="@{'/answers/useful/' + ${user.getId()}}" style="display: block; color: #26a69a">
-                                <span class="badge">
-                                    <span th:text="${numberOfHelped}"></span>
-                                </span>Helped:
-                            </a>
-                        </li>
-                    </ul>
+              </div>
+              <!-- /col-md-4 -->
+            </div>
+            <!-- /row -->
+          </div>
+          <!-- /col-lg-12 -->
+          <div class="col-lg-12 mt">
+            <div class="row content-panel">
+              <div class="panel-heading">
+                <ul class="nav nav-tabs nav-justified">
+                  <li class="active">
+                    <a data-toggle="tab" href="#overview">Overview</a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#contact" class="contact-map">New Topic/Question</a>
+                  </li>
+                  <li>
+                    <a data-toggle="tab" href="#edit">Edit Profile</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- /panel-heading -->
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div id="overview" class="tab-pane active">
+                    <div class="row">
+                    <div class="col-md-6 detailed">
+                        <h4>User Grades</h4>
+                        <div class="row centered mt mb">
+                          <div class="col-sm-4">
+                          	<h1><i class="fa fa-trophy"></i></h1>
+                            <h3 th:text="${points}"></h3>
+                            <h6>MY POINTS</h6>
+                          </div>
+                        </div>
+                        <div class="detailed mt">
+                          <h4>Recent Activity</h4>
+                          <div class="recent-activity">
+                            <div class="activity-icon bg-theme"><i class="fa fa-check"></i></div>
+                            <div class="activity-panel">
+                              <h5>1 HOUR AGO</h5>
+                              <p>Purchased: Dashio Admin Panel & Front-end theme.</p>
+                            </div>
+                            <div class="activity-icon bg-theme02"><i class="fa fa-trophy"></i></div>
+                            <div class="activity-panel">
+                              <h5>5 HOURS AGO</h5>
+                              <p>Task Completed. Resolved issue with Disk Space.</p>
+                            </div>
+                            <div class="activity-icon bg-theme04"><i class="fa fa-rocket"></i></div>
+                            <div class="activity-panel">
+                              <h5>3 DAYS AGO</h5>
+                              <p>Launched a new product: Flat Pack Heritage.</p>
+                            </div>
+                          </div>
+                          <!-- /recent-activity -->
+                        </div>
+                        <!-- /detailed -->
+                      </div>
+                      <!-- /col-md-6 -->
+                      <div class="col-md-6 detailed">
+                        <h4>User Stats</h4>
+                        <div class="row centered mt mb">
+                          <div class="col-sm-4">
+                          <a th:href="@{'/topics/user/' + ${user.getId()}}" style="color: #26a69a">
+                            <h1><i class="fa fa-comment-o"></i></h1>
+                            <h3 th:text="${numberOfTopics}"></h3>
+                            <h6>TOPICS</h6>
+                          </a>
+                          </div>
+                          <div class="col-sm-4">
+                          <a th:href="@{'/answers/' + ${user.getId()}}" style="color: #26a69a">
+                            <h1><i class="fa fa-comments-o"></i></h1>
+                            <h3 th:text="${numberOfAnswers}"></h3>
+                            <h6>ANSWERS</h6>
+                          </a>
+                          </div>
+                          <div class="col-sm-4">
+                          <a th:href="@{'/answers/useful/' + ${user.getId()}}" style="color: #26a69a">
+                            <h1><i class="fa fa-thumbs-o-up"></i></h1>
+                            <h3 th:text="${numberOfHelped}"></h3>
+                            <h6>HELPED</h6>
+                          </a>
+                          </div>
+                        </div>
+                        <!-- /row -->
+                        <h4>My Friends</h4>
+                        <div class="row centered mb">
+                          <ul class="my-friends">
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-01.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-02.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-03.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-04.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-05.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-06.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-07.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-08.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-09.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-10.jpg"></div>
+                            </li>
+                            <li>
+                              <div class="friends-pic"><img class="img-circle" width="35" height="35" src="img/friends/fr-11.jpg"></div>
+                            </li>
+                          </ul>
+                          <div class="row mt">
+                            <div class="col-md-4 col-md-offset-4">
+                              <h6><a href="#">VIEW ALL</a></h6>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /row -->
+                        <h4>Pending Tasks</h4>
+                        <div class="row centered">
+                          <div class="col-md-8 col-md-offset-2">
+                            <h5>Dashboard Update (40%)</h5>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            <h5>Unanswered Messages (80%)</h5>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <span class="sr-only">80% Complete (success)</span>
+                              </div>
+                            </div>
+                            <h5>Product Review (60%)</h5>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                <span class="sr-only">60% Complete (success)</span>
+                              </div>
+                            </div>
+                            <h5>Friend Requests (90%)</h5>
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                <span class="sr-only">90% Complete (success)</span>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /col-md-8 -->
+                        </div>
+                        <!-- /row -->
+                      </div>
+                      <!-- /col-md-6 -->
+                    </div>
+                    <!-- /OVERVIEW -->
+                  </div>
+                  <!-- /tab-pane -->
+                  <div id="contact" class="tab-pane">
+                  <form th:action="@{/profile}" method="post">
+                    <div class="row">
+                    <div class="col-md-6 detailed">
+                    <h4>Post New Topic</h4>
+                    <div class="form-group">
+                       <input type="text" placeholder="Enter Title here!" id="c-name" class="form-control" name="title" minlength="10" maxlength="32" data-length="32" required="required"/>
+                    </div>
+                    <div class="form-group">
+                    <textarea name="content" rows="6" class="form-control" placeholder="Whats on your mind?" minlength="5" maxlength="1024" data-length="1024" required="required"></textarea>
+                    </div>
+                    <textarea rows="3" name="code" class="form-control" placeholder="[optional]" maxlength="1024" data-length="1024"></textarea>
+                    <input type="hidden" name="id_user" th:value="${user.getId()}"/>  
+                        <div class="grey-style">
+                          <div class="pull-left">
+                            <button class="btn btn-sm btn-theme"><i class="fa fa-camera"></i></button>
+                            <button class="btn btn-sm btn-theme"><i class="fa fa-map-marker"></i></button>
+                          </div>
+                          <div class="pull-right">
+                            <button class="btn btn-sm btn-theme03" type="submit">POST</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /col-md-6 -->
+                      <div class="col-md-6 detailed">
+                        <h4>Forum Stats</h4>
+                        <div class="row centered mt mb">
+                          <div class="col-sm-4">
+                          <a style="color: #26a69a">
+                            <h1><i class="fa fa-list"></i></h1>
+                            <h3 th:text="${categories.size()}"></h3>
+                            <h6>Categories</h6>
+                          </a>
+                          </div>
+                          <div class="col-sm-4">
+                          <a th:href="@{'/topics/user/' + ${user.getId()}}" style="color: #26a69a">
+                            <h1><i class="fa fa-comment-o"></i></h1>
+                            <h3 th:text="${numberOfTopics}"></h3>
+                            <h6>TOPICS</h6>
+                          </a>
+                          </div>
+                          <div class="col-sm-4">
+                          <a th:href="@{'/answers/' + ${user.getId()}}" style="color: #26a69a">
+                            <h1><i class="fa fa-comments-o"></i></h1>
+                            <h3 th:text="${numberOfAnswers}"></h3>
+                            <h6>ANSWERS</h6>
+                          </a>
+                          </div>
+                        </div>
+                        <!-- /row -->
+                        <h4>Categories</h4>
+                        <div class="col-lg-6">
+                        <div:block th:each="category : ${categories}">
+                            <div class="radio">
+				                <label>
+				                  <input th:value="${category.getCategory()}" name="category" type="radio" id="se" required="required"/>
+				                  <p th:text="${category.getCategory()}"></p>
+				                </label>
+				              </div>
+                       </div:block>
+                       </div>
+                      </div>
+                    </div>
+                    <!-- /row -->
+                    </form>
+                  </div>
+                  <!-- /tab-pane -->
+                  <div id="edit" class="tab-pane">
+                    <div class="row">
+                      <div class="col-lg-8 col-lg-offset-2 detailed mt">
+                        <h4 class="mb">Update Personal Information</h4>
+                        <form role="form" class="form-horizontal" th:action="@{/users/save}" th:object="${user}" method="post" enctype="multipart/form-data">
+                        
+                        
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Profile Pic:</label>
+                         <div class="col-md-9">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                      <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" alt="" />
+                      </div>
+                      <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                      <div>
+                        <span class="btn btn-theme02 btn-file">
+                          <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                        <input type="file" class="default" name="image" accept="image/png, image/jpeg"/>
+                        </span>
+                        <a href="profile" class="btn btn-theme04 fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+                      </div>
+                    </div>
+                    <span class="label label-info">NOTE!</span>
+                    <span>
+                      Attached image thumbnail is
+                      supported in Latest Firefox, Chrome, Opera,
+                      Safari and Internet Explorer 10 only
+                      </span>
+                  </div>
+                        
+                        </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Email Address</label>
+                            <div class="col-lg-6">
+                              <input type="text" placeholder=" " id="email" class="form-control" name="email">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Password</label>
+                            <div class="col-lg-6">
+                              <input type="text" placeholder=" " id="password" name="password" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Introduction</label>
+                            <div class="col-lg-6">
+                              <input type="text" placeholder=" " id="introduction" name="introduction" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                              <button class="btn btn-theme" type="submit">Save</button>
+                              <button class="btn btn-theme04" type="button">Cancel</button>
+                            </div>
+                          </div>
+                         <input type="hidden" name="id_user" th:value="${user.getId()}"/>
+                        </form>
+                      </div>
+                      <!-- /col-lg-8 -->
+                    </div>
+                    <!-- /row -->
+                  </div>
+                  <!-- /tab-pane -->
                 </div>
-            </section>
-            <header class="row">
-                <div class="col s12">
-                    <blockquote class="flow-text left" th:text="|Select category and add topic: |">Add topic</blockquote>
-                </div>
-            </header>
-            <section>
-                <form th:action="@{/profile}" method="post">
-                    <div class="row">
-                        <div class="col s12">
-                            <p>
-                                <input value="rice" name="category" class="with-gap" type="radio" id="se" required="required"/>
-                                <label for="rice">Rice</label>
-                            </p>
-                            <p>
-                                <input value="beans" name="category" class="with-gap" type="radio" id="ee" required="required"/>
-                                <label for="beans">Beans</label>
-                            </p>
-                            <p>
-                                <input value="carrot" name="category" class="with-gap" type="radio" id="jpa" required="required"/>
-                                <label for="carrot">Carrot</label>
-                            </p>
-                            <p>
-                                <input value="water" name="category" class="with-gap" type="radio" id="spring" required="required"/>
-                                <label for="water">Water</label>
-                            </p>
-                            <p>
-                                <input value="coconut" name="category" class="with-gap" type="radio" id="web" required="required"/>
-                                <label for="coconut">Coconut</label>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Title:
-                                <input type="text" name="title" minlength="10" maxlength="32" data-length="32" required="required"/>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Content:
-                                <textarea name="content" class="materialize-textarea" minlength="5" maxlength="1024"
-                                          data-length="1024" required="required"></textarea>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <label>Post Code:
-                                <textarea name="code" class="materialize-textarea" placeholder="[optional]"
-                                          style="font-family: monospace, monospace;" maxlength="1024" data-length="1024"></textarea>
-                            </label>
-                        </div>
-                    </div>
-                    <input type="hidden" name="id_user" th:value="${user.getId()}"/>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <button class="btn waves-effect waves-light btn-large" type="submit" name="add">Add topic</button>
-                        </div>
-                    </div>
-                </form>
-            </section>
-            <!--/*@thymesVar id="points" type="java.lang.Long"*/-->
-        </article>
-    </main>
-</body>
+                <!-- /tab-content -->
+              </div>
+              <!-- /panel-body -->
+            </div>
+            <!-- /col-lg-12 -->
+          </div>
+          <!-- /row -->
+        </div>
+        <!-- /container -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+<footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>KAMATHA</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+         Created with KAMATHA template by <a href="#">S+ Labs</a>
+        </div>
+        <a href="/profile" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+  </section>
+  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+  <script th:src="@{/lib/bootstrap/js/bootstrap.min.js}"></script>
+  <script class="include" type="text/javascript" th:src="@{/lib/jquery.dcjqaccordion.2.7.js}"></script>
+  <script th:src="@{/lib/jquery.scrollTo.min.js}"></script>
+  <script th:src="@{/lib/jquery.nicescroll.js}" type="text/javascript"></script>
+  <script th:src="@{/lib/common-scripts.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/bootstrap-fileupload/bootstrap-fileupload.js}"></script>
+ </body>
+
 </html>

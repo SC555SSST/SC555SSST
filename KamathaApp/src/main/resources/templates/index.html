@@ -1,19 +1,295 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/offline">
+<html lang="en">
+
 <head>
-    <title>Home page | Kamatha</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>KAMATHA - The Farmers’ Bosom Buddy</title>
+
+ 
+
+  <link rel="stylesheet" type="text/css" href="css/zabuto_calendar.css">
+  <link rel="stylesheet" type="text/css" href="lib/gritter/css/jquery.gritter.css" />
+
+
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <link th:href="@{/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+  <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+
 </head>
+
 <body>
-    <main layout:fragment="content">
-        <article class="container">
-            <header class="row">
-                <div class="col s12">
-                    <h1 class="flow-text center">Kamatha App</h1>
-                    <p class="center">
-                    "KAMATHA" - Expert Ideas Exchange and Community Platform project of SC555(Web Programming) under M.Sc. in Computer Science, Postgraduate Institute of Science, University of Peradeniya.</p>
+  <section id="container">
+
+ <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+     <a href="/index" class="logo"><b>KA<span>MAT</span>HA</b></a>
+      <div class="nav notify-row" id="top_menu">
+        <ul class="nav top-menu">
+          <li id="header_notification_bar" class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">7</span>
+              </a>
+            <ul class="dropdown-menu extended notification">
+              <div class="notify-arrow notify-arrow-yellow"></div>
+              <li>
+                <p class="yellow">You have 7 new notifications</p>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                  Server Overloaded.
+                  <span class="small italic">4 mins.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="label label-warning"><i class="fa fa-bell"></i></span>
+                  Memory #2 Not Responding.
+                  <span class="small italic">30 mins.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                  Disk Space Reached 85%.
+                  <span class="small italic">2 hrs.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="label label-success"><i class="fa fa-plus"></i></span>
+                  New User Registered.
+                  <span class="small italic">3 hrs.</span>
+                  </a>
+              </li>
+              <li>
+                <a href="#">See all notifications</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+         <li><a class="logout" data-toggle="modal" data-target="#myModal"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</a></li>
+         <li><a class="logout" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="/profile"><img th:src="${avatar}" class="img-circle" width="80"></a></p>
+          <h5 th:text="${username}" class="centered"></h5>
+          <li class="mt">
+            <a href="/profile">
+              <i class="fa fa-dashboard"></i>
+              <span>Profile</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-comment"></i>
+              <span>Topic/Questions</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/topics">View Topics</a></li>
+              <li><a href="/managetopic">Create Topics</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-list"></i>
+              <span>Categories</span>
+              </a>
+            <ul class="sub">
+              <li><a href="/categories">View Categories</a></li>
+              <li><a href="/managecategories">Create Category</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/users">
+              <i class="fa fa-users"></i>
+              <span>Members </span>
+              </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <section id="main-content">
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Search Topic</h4>
+                    </div>
+                     <form role="form" th:action="@{/search}" method="post">
+                    <div class="modal-body">
+                    <input type="text" class="form-control" id="searchtext" name="searchtext" autocomplete="off" placeholder="Enter Title For Search!">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                    </form>
+                  </div>
                 </div>
-            </header>
-        </article>
-    </main>
+              </div>
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12 main-chart">
+            
+         				<div class="row mt">
+					<div class="col-md-12">
+						<div class="row content-panel mt mb">
+          <div class="col-md-6">
+          <img src="/img/logo.jpeg" class="img-circle" width="250" height="250">
+            <h2 contenteditable="true">KAMATHA EIEC Platform…</h2>
+            <h4 contenteditable="true">The Farmers’ Bosom Buddy</h4>
+          </div>
+          <div class="col-md-6">
+            <p contenteditable="true" class="mt">. “KAMATHA” - The Farmers’ Bosom Buddy. The platform comes to the fore as a software engineering solution as a result of long-term research in food insecurity. We, our team will be suggested an impactful solution to the sustainability of food in future by keeping the food security. In future the product will commemoratively cater its service to the global population as an Expert Ideas Exchange and Communication (EIEC) Platform in every food industry which is agriculture as well as in aquaculture.</p>
+            <p contenteditable="true">Through this, the platform basically serves to build more effective food security by sharing ideas and knowledge in the food production sector. As a sustainable solution, this will be the knowledge base of all areas in food industry. In all over the world, the system can be the common gathering place of farmers’, every scale food producers and experts in food industry as well. As a main problem in food security, the distribution of food will also be solved through “KAMATHA” by serving as a main exporting and importing feasibility discussion platform in food industry. Availability is also will not be a big issue with “KAMATHA” because of “KAMATHA” has a wide discussion among food specialists and farmers about food reserves in country wise or individual wise.</p>
+            <p contenteditable="true">By considering all of these benefits, “KAMATHA” will do its best to the world by keeping the sustainability in farming as well as in food security. Then, it’s time to serve the world, welcome “KAMATHA” as your first solution provider in farming. Give your problems to “KAMATHA” and take a deep breath. It will solve all your farming problems and will lead to you a sustainable future.</p>
+          </div>
+        </div>
+					</div>
+				</div>   
+
+            <div class="row">
+              <!--  PROFILE 02 PANEL -->
+              <div class="col-md-4 col-sm-4 mb">
+                <div class="weather pn">
+                  <i class="fa fa-list fa-4x"></i>
+                  <h2 th:text="${categories.size()}">+</h2>
+                  <h4>CATEGORIES</h4>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 mb">
+                <div class="weather pn">
+                  <i class="fa fa-comment-o fa-4x"></i>
+                  <h2 th:text="${topics.size()}">+</h2>
+                  <h4>TOPICS</h4>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4 mb">
+                <div class="weather pn">
+                  <i class="fa fa-comments-o fa-4x"></i>
+                  <h2 th:text="${answer.size()}">+</h2>
+                  <h4>ANSWERS</h4>
+                </div>
+              </div>
+              <!-- /col-md-4 -->
+            </div>
+            <!-- /row -->
+          </div>
+        </div>
+      </section>
+    </section>
+   <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>KAMATHA</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+         Created with KAMATHA template by <a href="#">S+ Labs</a>
+        </div>
+        <a href="/profile" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+  <script th:src="@{/lib/bootstrap/js/bootstrap.min.js}"></script>
+  <script class="include" type="text/javascript" th:src="@{/lib/jquery.dcjqaccordion.2.7.js}"></script>
+  <script th:src="@{/lib/jquery.scrollTo.min.js}"></script>
+  <script th:src="@{/lib/jquery.nicescroll.js}" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script th:src="@{/lib/common-scripts.js}"></script>
+  <script type="text/javascript" th:src="@{/lib/gritter/js/jquery.gritter.js}"></script>
+  <script type="text/javascript" th:src="@{/lib/gritter-conf.js}"></script>
+  <script th:src="@{/lib/common-scripts.js}"></script>
+  <script th:src="@{/lib/sparkline-chart.js}"></script>
+  <script th:src="@{/lib/zabuto_calendar.js}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var unique_id = $.gritter.add({
+        title: 'Welcome to KAMATHA!',
+        // (string | mandatory) the text inside the notification
+        text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Developed by <a href="http://alvarez.is" target="_blank" style="color:#4ECDC4">Alvarez.is</a>.',
+        // (string | optional) the image to display on the left
+        image: 'img/ui-sam.jpg',
+        // (bool | optional) if you want it to fade out on its own or just sit there
+        sticky: false,
+        // (int | optional) the time you want it to be alive for before fading out
+        time: 8000,
+        // (string | optional) the class name you want to apply to that specific message
+        class_name: 'my-sticky-class'
+      });
+
+      return false;
+    });
+  </script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      $("#date-popover").popover({
+        html: true,
+        trigger: "manual"
+      });
+      $("#date-popover").hide();
+      $("#date-popover").click(function(e) {
+        $(this).hide();
+      });
+
+      $("#my-calendar").zabuto_calendar({
+        action: function() {
+          return myDateFunction(this.id, false);
+        },
+        action_nav: function() {
+          return myNavFunction(this.id);
+        },
+        ajax: {
+          url: "show_data.php?action=1",
+          modal: true
+        },
+        legend: [{
+            type: "text",
+            label: "Special event",
+            badge: "00"
+          },
+          {
+            type: "block",
+            label: "Regular event",
+          }
+        ]
+      });
+    });
+
+    function myNavFunction(id) {
+      $("#date-popover").hide();
+      var nav = $("#" + id).data("navigation");
+      var to = $("#" + id).data("to");
+      console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+    }
+  </script>
 </body>
+
 </html>
