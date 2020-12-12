@@ -52,8 +52,10 @@ public class RegisterController {
             if (Objects.equals(introduction, ""))
                 user.setIntroduction(null);
             else
-                user.setIntroduction(introduction);
+            user.setIntroduction(introduction);
             user.setPassword(password);
+            user.setRole("USER");
+            user.setPhotos("NULL");
             user.setPassword(passwordEncoder.encode(password));
             user.setCreatedDate(LocalDateTime.now());
             userRepository.save(user);

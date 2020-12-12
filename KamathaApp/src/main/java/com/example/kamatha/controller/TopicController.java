@@ -47,10 +47,12 @@ public class TopicController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
         Long idUser = userRepository.getUserByUsername(username).getId();
-
+        String avatar=userRepository.getUserByUsername(username).getPhotos();
         Topic topic = topicRepository.findTopicById(Long.valueOf(id));
         List<Answer> answers = answerRepository.findAnswerByTopic_Id(Long.valueOf(id));
 
+        model.addAttribute("avatar",avatar);
+        model.addAttribute("username",username);
         model.addAttribute("topic", topic);
         model.addAttribute("answers", answers);
         model.addAttribute("idUser", idUser);
