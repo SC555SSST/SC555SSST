@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -70,13 +71,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         this.userRepository = userRepository;
     } 
  
- 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //Web resources
+        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/img/**");
+        web.ignoring().antMatchers("/lib/**");
+    }
  @Override
  protected void configure(HttpSecurity httpSecurity) throws Exception {
      httpSecurity
              .authorizeRequests()
-             .antMatchers("/", "/login", "/register")
+             .antMatchers("/","/index", "/login", "/register","/search","/managecategories", "/categories","/profile","../static/css", "../static/img","../static/lib")
              .permitAll()
+             .antMatchers("/users").hasAuthority("ADMIN")
+             .antMatchers("/static/**").permitAll()
+             .antMatchers("/topics/**").permitAll()
+             .antMatchers("/search/**").permitAll()
              .anyRequest()
              .authenticated()
              .and()
@@ -89,7 +100,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
              .logoutSuccessUrl("/login");
  }
 
- @Override
+@Override
  protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
      authenticationManagerBuilder.authenticationProvider(authProvider());
      authenticationManagerBuilder.userDetailsService(userRepository::getUserByUsername);

@@ -5,11 +5,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 /**
  *  2020-11-10
  * @author SHAN
@@ -33,7 +38,7 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 15)
     private String username;
 
     @Column(nullable = false, length = 60)
@@ -42,14 +47,52 @@ public class User implements UserDetails {
     @Column(length = 16)
     private String introduction;
 
-    private LocalDateTime createdDate;
+    @Column(nullable = true, length = 64)
+    private String photos;
+    
+    @Column(nullable = true, length = 32)
+    private String email;
+    
+    public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhotos() {
+		if(this.photos.equals("NULL")){
+			return "/user-photos/default/avatar.jpg";
+		}
+		else {
+			return "/user-photos/" + id + "/" + photos;
+		}
+		
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
+	}
+
+	@Column(length = 16)
+    private String role;
+    
+    
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	private LocalDateTime createdDate;
+
+    
     @OneToMany(mappedBy = "user")
     private List<Topic> topics;
 
     @OneToMany(mappedBy = "user")
     private List<Answer> answers;
-
+   
     public Long getId() {
         return id;
     }
@@ -57,6 +100,7 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     @Override
     public String getUsername() {
@@ -66,16 +110,19 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
+        return Collections.singletonList(new SimpleGrantedAuthority(this.role));
     }
 
     public String getPassword() {
         return password;
     }
 
+    public String getRole() {
+		return role;
+	}
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -143,4 +190,5 @@ public class User implements UserDetails {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return this.createdDate.format(formatter);
     }
+
 }
