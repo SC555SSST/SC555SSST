@@ -1,16 +1,108 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import userImg from 'components/user-2.png';
+import axios from 'axios';
+
+
+const {REACT_APP_REST_API_URL} = process.env
 
 
 class Home extends React.Component{
-	render(){
+	
+    
+    constructor(props) {
+        super(props)
+        this.answerFormRef = React.createRef();
+        this.state = {
+            threads : []
+        }
+    }
+
+    
+    async componentDidMount() {
         
+
+        let {data:response} = await axios({
+            method: 'get',
+            url: REACT_APP_REST_API_URL + '/threads',
+        }).then((response) => {
+            return response;
+        }, (error) => {
+            console.log(error);
+        });
+        console.log(response);
+        this.setState({threads: response.data});
+        /**/
+    }
+
+
+
+    render(){
         const forumItems = [];
+        
+        if(this.state.threads.length >0){
+            
+            let cls = '';
+            this.state.threads.map((row,index) => {
+                
+                cls = (cls=='')?'active':'';
+                forumItems.push(
+                                <div className={"forum-item " + cls}  key={index}>
+                                    <div className="row">
+                                        
+                                        <div className="col-md-1 forum-info">
+                                            <span className="views-number">{row.postCount}</span>
+                                            <div>
+                                                <small>Answers</small>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-8 no-left-padding">                                        
+                                            <Link to={'/thread/'+ row.id} className="forum-item-title">{row.title}</Link>
+                                            <div className="forum-sub-title">{row.text}</div>
+                                            {
+                                                row.categories.map((ctRecord,ctindex) => {
+                                                    return (<div className="forum-category" key={ctindex}>
+                                                                <Link to={'/category/'+ctRecord.id}>{ctRecord.category_name}</Link>
+                                                            </div>)
+                                                })
+                                            }
+                                        </div>
+                                                                                
+                                        <div className="col-md-3 forum-item-author">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <Link to={'/profile/' + row.user.id} className="profile-link dropdown-toggle">
+                                                        <img src={userImg} className="user-image" alt="User Image"/>
+                                                    </Link>
+                                                </div>
+
+                                                <div className="col-md-9">
+                                                    <span className="username"><Link to={'/profile/' + row.user.id}>{row.user.username}</Link></span>
+                                                    <div className="user-points-div">
+                                                        <span className="points">{row.user.points} Points</span>                                                
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>);
+            });
+
+        }else{
+            
+            forumItems.push([<h3>No results</h3>]);
+        }
+        
+
+        const forumItems1 = [];
         
         for (let i = 0; i <= 15; i++) {
             let cls = (i%2==0)?'active':''
-            forumItems.push(
+            forumItems1.push(
                             <div className={"forum-item " + cls}  key={i}>
                                 <div className="row">
                                     
@@ -33,7 +125,7 @@ class Home extends React.Component{
                                         <div className="row">
                                             <div className="col-md-3">
                                                 <Link to="/profile" className="profile-link dropdown-toggle">
-                                                    <img src="img/user-images/user-2.png" className="user-image" alt="User Image"/>
+                                                    <img src={userImg} className="user-image" alt="User Image"/>
                                                 </Link>
                                             </div>
 
@@ -63,9 +155,9 @@ class Home extends React.Component{
                 <div className="forum-section-container clearfix">
                     <div className="forum-title">
                         <div className="pull-right forum-desc">
-                            <small>Total posts: 17,800,600</small>
+                            <small>Total Threads: {this.state.threads.length}</small>
                         </div>
-                        <h3>Other subjects</h3>
+                        <h3>Questions</h3>
                     </div>
                     
                     <div className="forum-items">    
@@ -73,6 +165,7 @@ class Home extends React.Component{
                     </div>
                 </div>
 
+                {/*
                 <div className="col-sm-12">
                     <div className="pagination-div pull-right clearfix">
                         <ul className="pagination">
@@ -84,6 +177,8 @@ class Home extends React.Component{
                         </ul>
                     </div>
                 </div>
+                */}
+
             </React.Fragment>    
 		)
 	}

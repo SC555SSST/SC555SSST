@@ -553,6 +553,13 @@ nav.mnb  a.profile-link:hover{
     text-decoration: none
 }
 
+.user-profile-items .user-profile-item .username a span{
+    color: #FF9800;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
 .user-profile-items .user-profile-item .user-points-div .points{
         font-size: 14px;
     line-height: 14px;
@@ -666,7 +673,7 @@ a.forum-item-title:hover {
 .forum-item .forum-category {
     margin-left: 0px;
     padding: 5px 10px 5px 10px;
-    
+    margin-right: 5px;
     
     
     text-transform: capitalize;
@@ -1246,6 +1253,15 @@ footer.footer-section .footer-menu li a {
     text-decoration: none !important;
     background-color: transparent
 }
+
+.thread-container a span{
+    color: #FF9800;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+
 .thread-container .btn-primary {
     color: #fff;
     background-color: #3f6ad8;

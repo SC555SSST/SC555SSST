@@ -33,7 +33,7 @@ import CategoryManage from 'components/pages/CategoryManage';
 import UserManage from 'components/pages/UserManage';
 
 
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 
 
@@ -54,30 +54,43 @@ function App() {
                         
                         {/*<!-- react component : page content loads here-->*/} 
                         <div id="react_page_container">
-
+                            <Switch>
                             <Route exact path="/" component={Home} />
-                            <Route path="/404" component={Page404} />
+                            
                             
                             <Route path="/login" component={Login} />
                             <Route path="/ask-question" component={AskQuestion} />
                             <Route path="/dashboard" component={Dashboard} />           
                             <Route path="/empty" component={Empty} />
                             <Route path="/edit-thread-question" component={EditThreadQuestion} />
-                            <Route path="/profile" component={Profile} /> 
+
+                            <Route path="/profile/:userId" component={Profile} />
+
                             <Route path="/edit-thread-post" component={EditThreadPost} /> 
                             <Route path="/register" component={Register} />
                             <Route path="/permission-denied" component={PermissionDenied} />
                             <Route path="/change-password" component={ChangePassword} />
                             <Route path="/edit-user-profile" component={EditUserProfile} />
                             <Route path="/all-users" component={AllUsers} />
-                            <Route path="/thread" component={Thread} />
+                            
+                            <Route path="/thread/:threadId" component={Thread} />
+
+                            <Route path="/category/:catId" component={Category} / >
+//<Route path='/category/:code' component={(props) => <Category {...props} key={window.location.pathname}/>}/>
 
 
-                            <Route path="/category" component={Category} />
+
+
+
+
+                            // <Route path="/category" component={Category} />
                             <Route path="/thread-search" component={ThreadSearch} /> 
                             <Route path="/category-manage" component={CategoryManage} /> 
                             <Route path="/user-manage" component={UserManage} />
-                            
+                            <Route path="/404" component={Page404} />
+                            // <Route component={Page404} />
+                            <Redirect to="/404" />
+                            </Switch>
                         </div>{/*<!-- react component end-->*/}
 
                     </div>

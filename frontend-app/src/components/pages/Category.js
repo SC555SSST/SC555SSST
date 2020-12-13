@@ -1,55 +1,166 @@
 import React from 'react';
-
+import axios from 'axios';
 import { Link } from "react-router-dom";
 
+import userImg from 'components/user-2.png';
+
+const {REACT_APP_REST_API_URL} = process.env
 
 class Category extends React.Component{
-	render(){
+	
+    constructor(){
+        super();
+        this.state = {
+            categoryId : null,
+            categoryName: '',
+            threads     : []
+        }
+    }
 
-        const forumItems = [];
+
+
+    async componentDidMount() {
+         
+        let catId = parseInt(this.props.match.params.catId)
         
-        for (let i = 0; i <= 15; i++) {
-            let cls = (i%2==0)?'active':''
-            forumItems.push(
-                            <div className={"forum-item " + cls}  key={i}>
-                                <div className="row">
-                                    
-                                    <div className="col-md-1 forum-info">
-                                        <span className="views-number">345</span>
-                                        <div>
-                                            <small>Answers</small>
-                                        </div>
-                                    </div>
+        if(!isNaN(catId)) {
 
-                                    <div className="col-md-8 no-left-padding">                                        
-                                        <Link to="/thread" className="forum-item-title">Announcements</Link>
-                                        <div className="forum-sub-title">New to the community? music, movies, your favorite talk about enythingPlease stop by, say hi and tell us a bit about yourself.</div>
-                                        <div className="forum-category"><Link to="/category">Rice</Link></div>
-                                    </div>
-                                    
-                                    <div className="col-md-3 forum-item-author">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <Link to="/profile" className="profile-link dropdown-toggle">
-                                                    <img src="img/user-images/user-2.png" className="user-image" alt="User Image"/>
-                                                </Link>
+            let ctName = await this.getCategoryInfo(catId);
+            let threadArrNew  = await this.getThreads(catId);
+
+            this.setState({
+                categoryName: ctName,
+                categoryId: catId, 
+                threads: threadArrNew
+            });
+            
+        }
+    }
+
+    async componentDidUpdate(prevProps, prevState) {       
+               
+        let catId = parseInt(this.props.match.params.catId);
+        let catName = this.props.location.category_name
+        console.log('catId -' + catId);
+        console.log('catName - ' + catName);
+        
+
+        if ((this.state.categoryId !== catId)) {
+            console.log('=== Ajax  ===')
+            
+            if(isNaN(catId)) {
+                
+                this.setState({
+                    categoryName: '',
+                    categoryId: catId, 
+                    threads: []
+                });
+
+            }else{
+
+                let categoryNew   = await this.getCategoryInfo(catId);
+                let threadArrNew  = await this.getThreads(catId);
+                
+                this.setState({
+                    categoryName: categoryNew,
+                    categoryId: catId, 
+                    threads: threadArrNew
+                }); 
+            }
+        }
+
+        console.log('catName - ');       
+        
+    }
+
+    getCategoryInfo = async(id) => {        
+        let {data : response} = await axios({
+            method: 'get',
+            url: REACT_APP_REST_API_URL + '/categories/'+ id,
+        }).then((response) => {
+            return response;
+        }, (error) => {
+            console.log(error);
+        });
+        return response.data.category_name;
+    }
+
+    getThreads = async(id) => {
+        
+        let {data : responseData} = await axios({
+            method: 'get',
+            url: REACT_APP_REST_API_URL + '/categories/'+ id +'/threads',
+        }).then((response) => {
+           return response;
+        }, (error) => {
+            console.log(error);
+        });
+        
+        return responseData.data;      
+    }
+
+   
+
+    render(){
+
+        const forumItems = [];        
+        let pageHeading= this.state.categoryName;
+        let threadCount = this.state.threads.length
+
+        if(this.state.threads.length >0){
+
+            let cls = '';
+               
+            this.state.threads.map((row,index) => {    
+                
+                cls = (cls=='')?'active':''
+                forumItems.push(
+                                <div className={"forum-item " + cls}  key={index}>
+                                    <div className="row">
+                                        
+                                        <div className="col-md-1 forum-info">
+                                            <span className="views-number">{row.postCount}</span>
+                                            <div>
+                                                <small>Answers</small>
                                             </div>
+                                        </div>
 
-                                            <div className="col-md-9">
-                                                <span className="username"><Link to="/profile">John Alex</Link></span>
-                                                <div className="user-points-div">
-                                                    <span className="points">1516 Points</span>                                                
+                                        <div className="col-md-8 no-left-padding">                                        
+                                            <Link to={'/thread/'+ row.id} className="forum-item-title">{row.title}</Link>
+                                            <div className="forum-sub-title">{row.text}</div>
+                                            {
+                                                row.categories.map((ctRecord,ctindex) => {
+                                                    return (<div className="forum-category" key={ctindex}><Link to={'/category/'+ctRecord.id}>{ctRecord.category_name}</Link></div>)
+                                                })
+                                            }    
+                                        </div>
+                                        
+                                        <div className="col-md-3 forum-item-author">
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <Link to={'/profile/' + row.user.id} className="profile-link dropdown-toggle">
+                                                        <img src={userImg} className="user-image" alt="User Image"/>
+                                                    </Link>
+                                                </div>
+
+                                                <div className="col-md-9">
+                                                    <span className="username"><Link to={'/profile/' + row.user.id}>{row.user.username}</Link></span>
+                                                    <div className="user-points-div">
+                                                        <span className="points">{row.user.points} Points</span>                                                
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
-
-                                </div>
-                            </div>);
+                                </div>);
+            });
+        }else{
+            
+            forumItems.push([<h3>No results</h3>]);
         }
-
-
-
+        
+     
 		return (
 		    <React.Fragment>			
 		          
@@ -62,16 +173,16 @@ class Category extends React.Component{
                 <div className="forum-section-container clearfix">
                     <div className="forum-title">
                         <div className="pull-right forum-desc">
-                            <small>Total posts: 320,800</small>
+                            <small>Total threads: {threadCount}</small>
                         </div>
-                        <h3>Category one</h3>
+                        <h3>{pageHeading}</h3>
                     </div>
                     
                     <div className="forum-items">   
                         {forumItems}
                     </div>                   
                 </div>
-
+                {/*
                 <div className="col-sm-12">
                     <div className="pagination-div pull-right clearfix">
                         <ul className="pagination">
@@ -83,6 +194,7 @@ class Category extends React.Component{
                         </ul>
                     </div>
                 </div>
+                */}
 
 		</React.Fragment>    
 		)
