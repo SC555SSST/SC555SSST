@@ -17,7 +17,7 @@ class ThreadController extends Controller
     public function __construct(ThreadService $threadService)
     {
         $this->threadService = $threadService;;
-        /**/
+        /*
         $this->middleware('check.login',
             ['only' => ['store','threadSearch']]
         );
@@ -27,7 +27,7 @@ class ThreadController extends Controller
         $this->middleware('modify.threads',
             ['only' => ['update','destroy']]
         );
-
+        */
 
     }
 

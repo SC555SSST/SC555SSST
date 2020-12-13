@@ -32,12 +32,12 @@ Route::get('/sw', function () {
 //code for rest api version 1.0  url= /api/v1/[]
  Route::group(['prefix' => 'v1'], function() {
      Route::get('/', function () {
-         dd(Category::find(1))
-         dd('3333');
+         //dd(Category::find(1))
+         //dd('3333');
      });
 
      Route::get('/rr', function () {
-         dd('2222');
+         //dd('2222');
      });
      //Route::get('/users', [UserController::class, 'index']);
 

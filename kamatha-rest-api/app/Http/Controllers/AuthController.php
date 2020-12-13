@@ -23,14 +23,14 @@ class AuthController extends Controller
         $this->authService = $authService;
         $this->userService = $userService;
 
-
+        /*
         $this->middleware('check.guest',
             ['only' => ['login','store']]
         );
         $this->middleware('check.login',
             ['only' => ['check','tokenDecode','logout','passwordChange']]
         );
-        /**/
+        */
 
         //$this->middleware('jwt.auth',['only' => ['passwordChange', 'logout']]);
         //$this->middleware('auth:api', ['except' => ['store']]);

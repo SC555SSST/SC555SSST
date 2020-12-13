@@ -16,14 +16,14 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-
+        /*
         $this->middleware('check.login',
             ['only' => ['index']]
         );
         $this->middleware('check.admin',
             ['only' => ['update','show']]
         );
-        /**/
+        */
     }
 
     public function show($id){

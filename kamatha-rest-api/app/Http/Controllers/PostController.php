@@ -16,7 +16,7 @@ class PostController extends Controller
 
     public function __construct(PostService $postService){
         $this->postService = $postService;
-        /**/
+        /*
         $this->middleware('check.login',
             ['only' => ['store']]
         );
@@ -26,7 +26,7 @@ class PostController extends Controller
         $this->middleware('modify.posts',
             ['only' => ['update','destroy']]
         );
-
+        */
     }
 
     /**
