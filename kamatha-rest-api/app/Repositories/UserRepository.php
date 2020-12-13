@@ -27,18 +27,20 @@ class UserRepository
         {
             $user = new User;
 
-            $user->fullname = $userDetailsArr['fullname'];
-            $user->email    = $userDetailsArr['email'];
-            $user->password = $userDetailsArr['password'];
-            $user->username = $userDetailsArr['username'];
-            $user->gender   = $userDetailsArr['gender'];
-            $user->badge    = $userDetailsArr['badge'];
+            $user->fullname     = $userDetailsArr['fullname'];
+            $user->email        = $userDetailsArr['email'];
+            $user->password     = $userDetailsArr['password'];
+            $user->username     = $userDetailsArr['username'];
+            $user->gender       = $userDetailsArr['gender'];
+            $user->badge        = $userDetailsArr['badge'];
+            $user->role_id      = $userDetailsArr['account_type'];
             $user->save();
             $id = $user->id;
 
             return array('isInserted' =>true,'id'=>$id);
 
         }catch (\PDOException $e) {
+            //dd($e->getMessage ());
             return array('isInserted' =>false,'id'=>null);
         }
 
@@ -51,7 +53,7 @@ class UserRepository
         {
             $selectedUser->badge    =   $userDetailsArr['badge'];
             $selectedUser->points   =   $userDetailsArr['points'];
-            $selectedUser->role_id  =   $userDetailsArr['role_id'];
+            $selectedUser->role_id  =   $userDetailsArr['account_type'];
             $selectedUser->save();
 
             return array('isUpdated' =>true,'id'=>$id);

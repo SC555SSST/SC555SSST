@@ -69,6 +69,7 @@ class UserService
 
     public function update($userDetailsArr,$id){
         $selectedUser = $this->userRepository->findUserById($id);
+
         if($selectedUser==null){
             throw new \Exception('Resource does not exist',404);
         }else{
@@ -91,12 +92,17 @@ class UserService
         }
     }
 
-    public function changePw($pass,$userId){
+    public function changePw($pass,$userId,$oldPass){
         $user = $this->userRepository->findUserById($userId);
         if(empty($user)){
             throw new CustomException('User does not exist',400);
         }
-        $isUpdated = $this->userRepository->updateUserPass($user,$pass);
+        if($user->password == $oldPass){
+            $isUpdated = $this->userRepository->updateUserPass($user,$pass);
+        }else{
+            throw new CustomException('Old password do not match with database record',400);
+        }
+
         if(!$isUpdated){
             throw new CustomException('Internal Server Error',500);
         }

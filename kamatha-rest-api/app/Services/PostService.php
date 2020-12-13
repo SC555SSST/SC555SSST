@@ -31,7 +31,7 @@ class PostService
         }else{
             $thread         = $this->postRepository->findPostBelongThread($id);
             if($thread->count() == 0){
-                throw new CustomException('Resource does not exist',404);
+                throw new CustomException('Resource does not exist (Post not belong to any thread)',404);
             }else{
                 $postInfo = array(
                     'id'            => $post->id,

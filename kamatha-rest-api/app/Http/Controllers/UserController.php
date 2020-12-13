@@ -86,6 +86,7 @@ class UserController extends Controller
                 'account_type'  => 'required',
             ]);
 
+
             if($validator->fails()){
                 throw new ValidationException($validator);
             }

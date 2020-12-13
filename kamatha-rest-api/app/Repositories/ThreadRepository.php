@@ -107,16 +107,19 @@ class ThreadRepository
             DB::beginTransaction ();
             //dd($id);
             $thread = $this->findById($id);
-            $thread->categories()->detach();
+            if($thread !== null){
+                $thread->categories()->detach();
 
-            //delete all posts belong to thread
-            $postRepository = new PostRepository();
-            foreach ($thread->posts as $post){
-                $postRepository->deleteById($post->id);
+                //delete all posts belong to thread
+                $postRepository = new PostRepository();
+                foreach ($thread->posts as $post){
+                    $postRepository->deleteById($post->id);
+                }
+
+                //finally delete thread
+                $thread->delete($id);
             }
 
-            //finally delete thread
-            $thread->delete($id);
 
             DB::commit();
             return array('isDelete' =>true,'id'=>$id);

@@ -51,7 +51,6 @@ class AuthController extends Controller
     //when register
     public function store(Request $request)
     {
-        dd('store');
         try{
             $validator = Validator::make($request->all(), [
                 'fullname'  => 'required',
@@ -113,8 +112,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
-        //dd('login');
         $credentials = $request->only('email', 'password');
 
         $validator = Validator::make($credentials, [
@@ -157,9 +154,10 @@ class AuthController extends Controller
         //dd($this->guard()->check());
         $token = JWTAuth::getToken();
         //dd($token);
-        dd(JWTAuth::getPayload($token)->toArray());
+
 
         try {
+            dd(JWTAuth::getPayload($token)->toArray());
             $user = JWTAuth::parseToken()->authenticate();
             dd($user->email);
         } catch (JWTException $exception) {
@@ -170,7 +168,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        dd('6');
+        //dd('6');
         try {
             $this->guard()->logout();
             //JWTAuth::invalidate($request->token);
@@ -231,7 +229,7 @@ class AuthController extends Controller
 
 
     public function passwordChange(Request $request,$userId){
-        dd('7');
+
         try{
             if(is_numeric ($userId)){
                 $userId = intval($userId);
@@ -252,13 +250,15 @@ class AuthController extends Controller
                     'Validation Errors' => $validator->errors()
                 ], 400);
             }
-
+            //todo check old password with new one
             $new_pw = bcrypt($request->get('new_pw'));
-            $this->userService->changePw($new_pw,$userId);
+            $old_pw = bcrypt($request->get('new_pw'));
+            $this->userService->changePw($new_pw,$userId,$old_pw);
 
             $response = array(
                 'status'    => 'Success',
-                'message'   => 'User password updated successfully'
+                'message'   => 'User password updated successfully',
+                'data'     => [],
             );
 
             return response()->json($response, 200);

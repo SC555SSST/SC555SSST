@@ -259,6 +259,7 @@ class ThreadController extends Controller
             $response = array(
                 'status'    => 'Error',
                 'message'   => 'Internal server error',
+                //'message'   => $e->getMessage(),
             );
             return response()->json($response, 500);
         }
