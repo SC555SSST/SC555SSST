@@ -131,6 +131,10 @@ class ThreadRepository
         return Thread::where('title', 'like', '%' . $threadTitle . '%')->get();
     }
 
+    public function getThreadReplyCount(Thread $thread ){
+        return $thread->posts->count();
+    }
+
 
 
 

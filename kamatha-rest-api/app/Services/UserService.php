@@ -28,7 +28,7 @@ class UserService
         if(!$user){
             throw new CustomException('Resource does not exist',404);
         }else{
-             return array([
+             return array(
                  'id'             => $user->id,
                  'fullname'       => $user->fullname,
                  'email'          => $user->email,
@@ -37,7 +37,7 @@ class UserService
                  'badge'          => $user->badge,
                  'points'         => $user->points,
                  'account_type'   => $user->role->role_name
-             ]);
+             );
         }
     }
 
@@ -52,7 +52,7 @@ class UserService
 
             $arr = array();
             foreach($users as $user){
-                $arr[] = array([
+                $arr[] = array(
                             'id'             => $user->id,
                             'fullname'       => $user->fullname,
                             'email'          => $user->email,
@@ -61,7 +61,7 @@ class UserService
                             'badge'          => $user->badge,
                             'points'         => $user->points,
                             'account_type'   => $user->role->role_name
-                        ]);
+                        );
             }
             return $arr;
         }

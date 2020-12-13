@@ -17,6 +17,7 @@ class ThreadController extends Controller
     public function __construct(ThreadService $threadService)
     {
         $this->threadService = $threadService;;
+        /**/
         $this->middleware('check.login',
             ['only' => ['store','threadSearch']]
         );
@@ -26,6 +27,7 @@ class ThreadController extends Controller
         $this->middleware('modify.threads',
             ['only' => ['update','destroy']]
         );
+
 
     }
 
@@ -44,7 +46,7 @@ class ThreadController extends Controller
                 'message'   => ''
             );
 
-            if(empty($threadInfo) == 0){
+            if(empty($threadInfo)){
                 return response()->json($response, 404);
             }else{
                 return response()->json($response, 200);
@@ -272,7 +274,14 @@ class ThreadController extends Controller
                 throw new \Exception('The given data was invalid',400);
             }
 
-            $response = $this->threadService->getThreadPosts($id);
+            $threadPosts = $this->threadService->getThreadPosts($id);
+            $response = array(
+                'status'    => 'Success',
+                'data' => $threadPosts,
+                'message'   => '',
+            );
+
+
             return response()->json($response, 200);
 
         }catch (CustomException $e) {
@@ -307,7 +316,12 @@ class ThreadController extends Controller
                     $searchedThreads = $this->threadService->threadSearch($threadTitle);
 
                     if(empty($searchedThreads)){
-                        throw new CustomException('No Results Found',204);
+                        $response = array(
+                            'status'    => 'Success',
+                            'data'      => $searchedThreads,
+                            'message'   => 'No Results Found'
+                        );
+                        return response()->json($response, 204);
                     }else{
                         $response = array(
                             'status'    => 'Success',

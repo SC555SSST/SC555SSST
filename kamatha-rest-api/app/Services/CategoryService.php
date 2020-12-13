@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Validator;
 class CategoryService
 {
     private $categoryRepository;
+    private $threadRepository;
 
-    public function __construct(CategoryRepository $categoryRepository) {
+    public function __construct(CategoryRepository $categoryRepository,ThreadRepository $threadRepository) {
         $this->categoryRepository = $categoryRepository;
+        $this->threadRepository = $threadRepository;
     }
 
     public function view($categoryId){
@@ -97,6 +99,8 @@ class CategoryService
                     $userRepo = new UserRepository();
                     $userInfo = $userRepo->findUserById($belongThread->user_id);
 
+                    // get how many posts thread have
+                    $threadPostCount = $this->threadRepository->getThreadReplyCount($belongThread);
 
                     if(empty($userInfo)){
                         $userInfoArr = array();
@@ -112,6 +116,7 @@ class CategoryService
                         'id'            => $belongThread->id,
                         'title'         => $belongThread->title,
                         'text'          => $belongThread->text,
+                        'postCount'     => $threadPostCount,
                         'user'          => $userInfoArr,
                         'categories'    => $catArr
                     );

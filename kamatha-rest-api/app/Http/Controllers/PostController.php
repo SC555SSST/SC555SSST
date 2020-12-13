@@ -16,6 +16,7 @@ class PostController extends Controller
 
     public function __construct(PostService $postService){
         $this->postService = $postService;
+        /**/
         $this->middleware('check.login',
             ['only' => ['store']]
         );
@@ -25,6 +26,7 @@ class PostController extends Controller
         $this->middleware('modify.posts',
             ['only' => ['update','destroy']]
         );
+
     }
 
     /**
@@ -94,6 +96,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
+
         try{
 
             if(is_numeric ($id)){
@@ -104,6 +107,7 @@ class PostController extends Controller
 
             $post = $this->postService->view($id);
 
+            //dd($post);
             if($post){
                 $response = array(
                     'status'    => 'Success',
@@ -120,6 +124,13 @@ class PostController extends Controller
                 return response()->json($response, 404);
             }
 
+        }catch(CustomException $exception){
+
+            $response = array(
+                'status'    => 'Error',
+                'message'   => $exception->getMessage(),
+            );
+            return response()->json($response, $exception->getCode());
         }catch (\Exception $e) {
 
             $response = array(
@@ -154,7 +165,8 @@ class PostController extends Controller
                 'user_id'    => 'required',
                 'is_useful'  => 'required',
             ]);
-
+            //var_dump($validator->errors ());
+            //dd();
             if($validator->fails()){
                 throw new ValidationException($validator);
             }

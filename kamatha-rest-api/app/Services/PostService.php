@@ -25,6 +25,7 @@ class PostService
     public function view($id){
 
         $post = $this->postRepository->findById($id);
+
         if(!$post){
             throw new CustomException('Resource does not exist',404);
         }else{

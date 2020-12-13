@@ -15,9 +15,11 @@ class CategoryController extends Controller
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
+        /* */
         $this->middleware('check.admin',
             ['only' => ['store','update','destroy']]
         );
+
     }
 
     /**
@@ -151,6 +153,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //var_dump($request->get('category'));
+        //dd();
         try{
 
             if(is_numeric ($id)){
@@ -245,7 +249,13 @@ class CategoryController extends Controller
                 throw new \Exception('The given data was invalid',400);
             }
 
-            $response = $this->categoryService->getThreadsBelongToCategory($id);
+            $threadsData = $this->categoryService->getThreadsBelongToCategory($id);
+
+            $response = array(
+                'status'    => 'Success',
+                'message'   => '',
+                'data'      => $threadsData,
+            );
             return response()->json($response, 200);
 
         }catch (CustomException $e) {
@@ -253,12 +263,14 @@ class CategoryController extends Controller
             $response = array(
                 'status'    => 'Error',
                 'message'   => $e->getMessage(),
+                'data'      => [],
             );
             return response()->json($response, $e->getCode());
         }catch (\Exception $e) {
 
             $response = array(
                 'status'    => 'Error',
+                'data'      => [],
                 //'message'   => 'Internal server error',
                 'message'   => $e->getMessage(),
             );

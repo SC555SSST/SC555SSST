@@ -64,12 +64,32 @@ class ThreadService
         foreach ($threads as $thread){
             $arr = $this->threadRepository->findThreadCategories($thread);
 
+
+            //get userinfo
+            $userRepo = new UserRepository();
+            $userInfo = $userRepo->findUserById($thread->user_id);
+            if(empty($userInfo)){
+                $userInfoArr = array();
+            }else{
+                $userInfoArr = array(
+                    'username'    =>$userInfo->username,
+                    'points'      =>$userInfo->points,
+                    'id'          =>$userInfo->id,
+                    'account_type'=>$userInfo->role->role_name,
+                );
+            }
+
+
+            // get how many posts thread have
+            $threadPostCount = $this->threadRepository->getThreadReplyCount($thread);
+
             $threadArr[] = array(
                 'id'            => $thread->id,
                 'title'         => $thread->title,
                 'text'          => $thread->text,
-                'user_id'       => $thread->user_id,
-                'categories'    => $arr
+                'categories'    => $arr,
+                'postCount'     => $threadPostCount,
+                'user'          => $userInfoArr,
             );
         }
 
@@ -162,9 +182,9 @@ class ThreadService
                 $userInfo = $userRepo->findUserById($threadPost['user_id']);
 
                 $arr[] = array(
-                                'is_useful'     =>$threadPost->is_useful,
-                                'post_text'     =>$threadPost->post_text,
                                 'id'            =>$threadPost->id,
+                                'post_text'     =>$threadPost->post_text,
+                                'is_useful'     =>$threadPost->is_useful,
                                 'user'      =>array(
                                     'id'           =>$userInfo->id,
                                     'username'     =>$userInfo->username,
